@@ -1,42 +1,19 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import localFont from 'next/font/local';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { GoogleAdSense } from '@/components/growth-engine/GoogleAdSense';
 import { siteConfig } from '@/site.config';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-
-const pretendard = localFont({
-  src: [
-    {
-      path: '../../public/fonts/Pretendard-Regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/Pretendard-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/Pretendard-SemiBold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/Pretendard-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-pretendard',
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
   display: 'swap',
-  fallback: ['system-ui', 'sans-serif'],
-  preload: false,
 });
+
+// Pretendard 폰트는 선택사항 - 파일이 없으면 Inter 폰트 사용
+// 폰트 파일을 추가하려면 public/fonts/ 디렉토리에 Pretendard 폰트 파일을 추가하세요
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -102,4 +79,3 @@ export default function RootLayout({
     </html>
   );
 }
-
