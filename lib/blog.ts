@@ -52,7 +52,7 @@ export function getAllPosts(): BlogPost[] {
   }
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
+export function getPostBySlug(slug: string, includeUnpublished = false): BlogPost | null {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.mdx`);
     if (!fs.existsSync(fullPath)) {
@@ -62,12 +62,22 @@ export function getPostBySlug(slug: string): BlogPost | null {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    return {
+    const post = {
       slug,
       content,
       ...(data as BlogPostFrontmatter),
       published: data.published !== false,
+      status: data.status || (data.published ? 'published' : 'draft'),
+      index: data.index !== false,
+      sitemap: data.sitemap !== false,
     } as BlogPost;
+
+    // published가 false이고 includeUnpublished가 false면 null 반환
+    if (!includeUnpublished && !post.published) {
+      return null;
+    }
+
+    return post;
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
       console.error('Error reading blog post:', error);

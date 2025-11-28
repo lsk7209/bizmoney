@@ -1,11 +1,14 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog';
+import { getAllPostsForAdmin } from '@/lib/admin';
 import { getAllPublishedTools } from '@/lib/tools';
 import { siteConfig } from '@/site.config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
-  const posts = getAllPosts();
+  const allPosts = getAllPostsForAdmin();
+  // sitemap에 포함할 포스트만 필터링 (published && sitemap !== false)
+  const posts = allPosts.filter((post) => post.published && post.sitemap !== false);
   const tools = getAllPublishedTools();
 
   const postUrls: MetadataRoute.Sitemap = posts.map((post) => ({

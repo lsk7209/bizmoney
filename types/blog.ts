@@ -1,3 +1,5 @@
+export type PostStatus = 'draft' | 'review' | 'published';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -11,6 +13,19 @@ export interface BlogPost {
   keywords?: string[];
   canonicalUrl?: string;
   published: boolean;
+  status?: PostStatus;
+  index?: boolean;
+  sitemap?: boolean;
+  h1?: string;
+  cta?: {
+    text: string;
+    url: string;
+  };
+  internalLinks?: string[];
+  externalLinks?: Array<{
+    url: string;
+    description: string;
+  }>;
   content: string;
 }
 
@@ -26,6 +41,19 @@ export interface BlogPostFrontmatter {
   keywords?: string[];
   canonicalUrl?: string;
   published?: boolean;
+  status?: PostStatus;
+  index?: boolean;
+  sitemap?: boolean;
+  h1?: string;
+  cta?: {
+    text: string;
+    url: string;
+  };
+  internalLinks?: string[];
+  externalLinks?: Array<{
+    url: string;
+    description: string;
+  }>;
 }
 
 

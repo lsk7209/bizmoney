@@ -1,0 +1,188 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { checkAdminAuth } from '@/lib/admin-auth';
+import { getPostBySlug } from '@/lib/blog';
+import { updatePostFile, validatePublish } from '@/lib/admin';
+import type { BlogPostFrontmatter } from '@/types/blog';
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+  }
+
+  return NextResponse.json(post);
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { slug } = await params;
+    const post = getPostBySlug(slug, true); // 관리자용: published 여부와 관계없이 가져오기
+
+    if (!post) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+
+    const body = await request.json();
+
+    // frontmatter 업데이트
+    const frontmatter: BlogPostFrontmatter = {
+      title: body.title || post.title,
+      description: body.description || post.description,
+      date: body.date || post.date,
+      author: body.author || post.author,
+      category: body.category || post.category,
+      tags: body.tags || post.tags,
+      metaTitle: body.metaTitle || post.metaTitle,
+      metaDescription: body.metaDescription || post.metaDescription,
+      keywords: body.keywords || post.keywords,
+      canonicalUrl: body.canonicalUrl || post.canonicalUrl,
+      published: body.published !== undefined ? body.published : post.published,
+      status: body.status || post.status || (body.published ? 'published' : 'draft'),
+      index: body.index !== undefined ? body.index : post.index !== false,
+      sitemap: body.sitemap !== undefined ? body.sitemap : post.sitemap !== false,
+      h1: body.h1 || post.h1,
+      cta: body.ctaText && body.ctaUrl
+        ? { text: body.ctaText, url: body.ctaUrl }
+        : post.cta,
+      internalLinks: body.internalLinks || post.internalLinks,
+      externalLinks: body.externalLinks || post.externalLinks,
+    };
+
+    // published 상태로 변경 시 검증
+    if (frontmatter.status === 'published') {
+      const validation = validatePublish({
+        ...post,
+        ...frontmatter,
+      });
+
+      if (!validation.valid) {
+        return NextResponse.json(
+          { error: 'Validation failed', errors: validation.errors },
+          { status: 400 }
+        );
+      }
+    }
+
+    // MDX 파일 업데이트
+    updatePostFile(slug, frontmatter, post.content);
+
+    return NextResponse.json({ success: true, post: { ...post, ...frontmatter } });
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error updating post:', error);
+    }
+    return NextResponse.json(
+      { error: 'Failed to update post' },
+      { status: 500 }
+    );
+  }
+}
+
+import { getPostBySlugForAdmin, updatePostFile, validatePublish } from '@/lib/admin';
+import type { BlogPostFrontmatter } from '@/types/blog';
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { slug } = await params;
+  const post = getPostBySlugForAdmin(slug);
+
+  if (!post) {
+    return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+  }
+
+  return NextResponse.json(post);
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { slug } = await params;
+    const post = getPostBySlugForAdmin(slug);
+
+    if (!post) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+
+    const body = await request.json();
+
+    // frontmatter 업데이트
+    const frontmatter: BlogPostFrontmatter = {
+      title: body.title || post.title,
+      description: body.description || post.description,
+      date: body.date || post.date,
+      author: body.author || post.author,
+      category: body.category || post.category,
+      tags: body.tags || post.tags,
+      metaTitle: body.metaTitle || post.metaTitle,
+      metaDescription: body.metaDescription || post.metaDescription,
+      keywords: body.keywords || post.keywords,
+      canonicalUrl: body.canonicalUrl || post.canonicalUrl,
+      published: body.published !== undefined ? body.published : post.published,
+      status: body.status || post.status || (body.published ? 'published' : 'draft'),
+      index: body.index !== undefined ? body.index : post.index !== false,
+      sitemap: body.sitemap !== undefined ? body.sitemap : post.sitemap !== false,
+      h1: body.h1 || post.h1,
+      cta: body.ctaText && body.ctaUrl
+        ? { text: body.ctaText, url: body.ctaUrl }
+        : post.cta,
+      internalLinks: body.internalLinks || post.internalLinks,
+      externalLinks: body.externalLinks || post.externalLinks,
+    };
+
+    // published 상태로 변경 시 검증
+    if (frontmatter.status === 'published') {
+      const validation = validatePublish({
+        ...post,
+        ...frontmatter,
+      });
+
+      if (!validation.valid) {
+        return NextResponse.json(
+          { error: 'Validation failed', errors: validation.errors },
+          { status: 400 }
+        );
+      }
+    }
+
+    // MDX 파일 업데이트
+    updatePostFile(slug, frontmatter, post.content);
+
+    return NextResponse.json({ success: true, post: { ...post, ...frontmatter } });
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error updating post:', error);
+    }
+    return NextResponse.json(
+      { error: 'Failed to update post' },
+      { status: 500 }
+    );
+  }
+}
