@@ -141,34 +141,30 @@ export function AdminPostEditor({ post, allPosts }: AdminPostEditorProps) {
     }
   };
 
-  const errorMessage = error ? (
-    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-      {error}
-    </div>
-  ) : null;
-
-  const successMessage = success ? (
-    <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
-      저장되었습니다!
-    </div>
-  ) : null;
-
-  const validationMessage = validationErrors.length > 0 ? (
-    <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded">
-      <div className="font-semibold mb-2">검증 오류:</div>
-      <ul className="list-disc list-inside space-y-1">
-        {validationErrors.map((err, idx) => (
-          <li key={idx}>{err}</li>
-        ))}
-      </ul>
-    </div>
-  ) : null;
-
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {errorMessage}
-      {successMessage}
-      {validationMessage}
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          {error}
+        </div>
+      )}
+
+      {success && (
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+          저장되었습니다!
+        </div>
+      )}
+
+      {validationErrors.length > 0 && (
+        <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded">
+          <div className="font-semibold mb-2">검증 오류:</div>
+          <ul className="list-disc list-inside space-y-1">
+            {validationErrors.map((err, idx) => (
+              <li key={idx}>{err}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold mb-4">기본 정보</h2>
@@ -361,7 +357,7 @@ export function AdminPostEditor({ post, allPosts }: AdminPostEditorProps) {
         </div>
       </div>
 
-      {(formData.category || formData.tags) ? (
+      {(formData.category || formData.tags) && (
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">블로그/가이드 추가 설정</h2>
           <div className="space-y-4">
@@ -421,7 +417,7 @@ export function AdminPostEditor({ post, allPosts }: AdminPostEditorProps) {
             </div>
           </div>
         </div>
-      ) : null}
+      )}
 
       <div className="flex justify-end space-x-4">
         <button
@@ -442,4 +438,3 @@ export function AdminPostEditor({ post, allPosts }: AdminPostEditorProps) {
     </form>
   );
 }
-
