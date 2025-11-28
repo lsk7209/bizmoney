@@ -12,22 +12,22 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const pretendard = localFont({
   src: [
     {
-      path: '../public/fonts/Pretendard-Regular.woff2',
+      path: '../../public/fonts/Pretendard-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../public/fonts/Pretendard-Medium.woff2',
+      path: '../../public/fonts/Pretendard-Medium.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../public/fonts/Pretendard-SemiBold.woff2',
+      path: '../../public/fonts/Pretendard-SemiBold.woff2',
       weight: '600',
       style: 'normal',
     },
     {
-      path: '../public/fonts/Pretendard-Bold.woff2',
+      path: '../../public/fonts/Pretendard-Bold.woff2',
       weight: '700',
       style: 'normal',
     },
@@ -35,6 +35,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
   display: 'swap',
   fallback: ['system-ui', 'sans-serif'],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -89,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={`${pretendard.variable} ${inter.variable}`}>
+    <html lang="ko" className={inter.variable}>
       <body className="min-h-screen flex flex-col">
         {siteConfig.adsense.enabled && <GoogleAdSense />}
         <Header />
