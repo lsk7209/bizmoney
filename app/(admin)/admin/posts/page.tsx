@@ -1,23 +1,43 @@
 import { getAllPostsForAdmin } from '@/lib/admin';
 import Link from 'next/link';
+import { PostFilter } from '@/components/admin/PostFilter';
 
-export default async function AdminPostsPage() {
+export default async function AdminPostsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string }>;
+}) {
   const posts = getAllPostsForAdmin();
+  const params = await searchParams;
+  const statusFilter = params.status || 'all';
+
+  const filteredPosts =
+    statusFilter === 'all'
+      ? posts
+      : posts.filter((post) => {
+          if (statusFilter === 'published') {
+            return post.published && post.status === 'published';
+          }
+          return post.status === statusFilter;
+        });
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">블로그 포스트 관리</h1>
-          <p className="mt-2 text-gray-600">전체 {posts.length}개의 포스트</p>
+          <p className="mt-2 text-gray-600">
+            전체 {posts.length}개 중 {filteredPosts.length}개 표시
+          </p>
         </div>
         <div className="flex space-x-4">
-          <select className="px-4 py-2 border border-gray-300 rounded-md text-sm">
-            <option value="all">전체</option>
-            <option value="published">발행됨</option>
-            <option value="review">검수 대기</option>
-            <option value="draft">초안</option>
-          </select>
+          <Link
+            href="/admin/posts/new"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
+          >
+            새 포스트 생성
+          </Link>
+          <PostFilter currentStatus={statusFilter} />
         </div>
       </div>
 
@@ -43,7 +63,7 @@ export default async function AdminPostsPage() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {posts.map((post) => {
+            {filteredPosts.map((post) => {
               const seoComplete =
                 !!post.metaTitle &&
                 !!post.metaDescription &&
@@ -113,4 +133,3 @@ export default async function AdminPostsPage() {
     </div>
   );
 }
-

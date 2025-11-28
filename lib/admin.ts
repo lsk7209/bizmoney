@@ -84,6 +84,28 @@ export function getAllPostsForAdmin(): BlogPost[] {
   }
 }
 
+// MDX 파일 생성
+export function createPostFile(slug: string, frontmatter: BlogPostFrontmatter, content: string): void {
+  // 디렉토리가 없으면 생성
+  if (!fs.existsSync(postsDirectory)) {
+    fs.mkdirSync(postsDirectory, { recursive: true });
+  }
+
+  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  
+  // 이미 존재하는 경우 에러
+  if (fs.existsSync(fullPath)) {
+    throw new Error(`Post file already exists: ${slug}`);
+  }
+
+  // frontmatter를 YAML 형식으로 변환
+  const frontmatterYaml = matter.stringify(content, frontmatter, {
+    delimiters: '---',
+  });
+
+  fs.writeFileSync(fullPath, frontmatterYaml, 'utf8');
+}
+
 // MDX 파일 업데이트
 export function updatePostFile(slug: string, frontmatter: BlogPostFrontmatter, content: string): void {
   const fullPath = path.join(postsDirectory, `${slug}.mdx`);
@@ -98,6 +120,17 @@ export function updatePostFile(slug: string, frontmatter: BlogPostFrontmatter, c
   });
 
   fs.writeFileSync(fullPath, frontmatterYaml, 'utf8');
+}
+
+// MDX 파일 삭제
+export function deletePostFile(slug: string): void {
+  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Post file not found: ${slug}`);
+  }
+
+  fs.unlinkSync(fullPath);
 }
 
 // 퍼블리시 검증

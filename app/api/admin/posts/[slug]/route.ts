@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkAdminAuth } from '@/lib/admin-auth';
-import { getPostBySlugForAdmin, updatePostFile, validatePublish } from '@/lib/admin';
+import { getPostBySlugForAdmin, updatePostFile, deletePostFile, validatePublish } from '@/lib/admin';
 import type { BlogPostFrontmatter } from '@/types/blog';
 
 export async function GET(
@@ -79,7 +79,7 @@ export async function PUT(
     }
 
     // MDX 파일 업데이트
-    updatePostFile(slug, frontmatter, post.content);
+    updatePostFile(slug, frontmatter, body.content || post.content);
 
     return NextResponse.json({ success: true, post: { ...post, ...frontmatter } });
   } catch (error) {
@@ -88,6 +88,36 @@ export async function PUT(
     }
     return NextResponse.json(
       { error: 'Failed to update post' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  if (!checkAdminAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { slug } = await params;
+    const post = getPostBySlugForAdmin(slug);
+
+    if (!post) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+
+    deletePostFile(slug);
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error deleting post:', error);
+    }
+    return NextResponse.json(
+      { error: error.message || 'Failed to delete post' },
       { status: 500 }
     );
   }

@@ -35,6 +35,30 @@ export default async function AdminLayout({
                 >
                   블로그 관리
                 </Link>
+                <Link
+                  href="/admin/posts/new"
+                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  새 포스트
+                </Link>
+                <Link
+                  href="/admin/tools"
+                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  도구 관리
+                </Link>
+                <Link
+                  href="/admin/topics"
+                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  토픽 관리
+                </Link>
+                <Link
+                  href="/admin/settings"
+                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  설정
+                </Link>
               </div>
             </div>
             <div className="flex items-center space-x-4">
