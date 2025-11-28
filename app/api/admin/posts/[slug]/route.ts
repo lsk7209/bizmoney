@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkAdminAuth } from '@/lib/admin-auth';
-import { getPostBySlug } from '@/lib/blog';
-import { updatePostFile, validatePublish } from '@/lib/admin';
+import { getPostBySlugForAdmin, updatePostFile, validatePublish } from '@/lib/admin';
 import type { BlogPostFrontmatter } from '@/types/blog';
 
 export async function GET(
@@ -13,7 +12,7 @@ export async function GET(
   }
 
   const { slug } = await params;
-    const post = getPostBySlug(slug, true); // 관리자용: published 여부와 관계없이 가져오기
+  const post = getPostBySlugForAdmin(slug);
 
   if (!post) {
     return NextResponse.json({ error: 'Post not found' }, { status: 404 });
@@ -32,7 +31,7 @@ export async function PUT(
 
   try {
     const { slug } = await params;
-    const post = getPostBySlug(slug, true); // 관리자용: published 여부와 관계없이 가져오기
+    const post = getPostBySlugForAdmin(slug);
 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
