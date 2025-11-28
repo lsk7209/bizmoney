@@ -132,8 +132,13 @@ Vercel 대시보드 > Project Settings > Environment Variables에서 다음 변�
 **해결**:
 1. Vercel 플랜 확인 (Pro 이상 필요)
 2. `vercel.json`의 Cron 설정 확인
-3. `CRON_SECRET` 환경 변수 설정 확인
-4. 수동으로 `/api/cron/daily` 호출 테스트
+3. `CRON_SECRET` 환경 변수 설정 확인 (선택사항 - Vercel Cron은 자동 인증)
+4. Vercel 대시보드 > Cron Jobs에서 실행 로그 확인
+5. 수동으로 `/api/cron/daily` 호출 테스트:
+   ```bash
+   curl -X GET "https://your-domain.vercel.app/api/cron/daily" \
+     -H "Authorization: Bearer YOUR_CRON_SECRET"
+   ```
 
 ### 5.4 데이터베이스 연결 오류
 **문제**: Turso 데이터베이스 연결 실패
@@ -146,17 +151,19 @@ Vercel 대시보드 > Project Settings > Environment Variables에서 다음 변�
 
 ### 6.1 빌드 최적화
 - `next.config.js`에 이미 최적화 설정 포함:
-  - `output: 'standalone'`
-  - `compress: true`
-  - `poweredByHeader: false`
+  - `output: 'standalone'` - 독립 실행 파일 생성
+  - `compress: true` - Gzip 압축 활성화
+  - `poweredByHeader: false` - 보안 헤더 제거
 
 ### 6.2 Edge Runtime 활용
-- API 라우트는 Edge Runtime 사용 (`export const runtime = 'edge'`)
+- 모든 API 라우트는 Edge Runtime 사용 (`export const runtime = 'edge'`)
 - 빠른 응답 시간과 낮은 지연 시간
+- `vercel.json`에 함수 타임아웃 설정 (10초)
 
 ### 6.3 정적 생성 최적화
 - 모든 페이지는 정적 생성 (SSG)
 - `generateStaticParams`로 빌드 시 모든 경로 생성
+- `dynamicParams = false`로 동적 경로 제한
 
 ## 7. 모니터링
 

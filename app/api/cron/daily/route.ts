@@ -5,15 +5,25 @@ export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   // Vercel Cron은 자동으로 Authorization 헤더를 추가합니다
-  // 환경 변수에서 Vercel Cron Secret 확인
+  // Vercel Cron Secret은 환경 변수에서 확인 가능하지만, Vercel이 자동으로 처리합니다
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
   
-  // Vercel Cron의 경우 자동 인증되지만, 수동 호출을 위한 검증도 포함
-  const isVercelCron = request.headers.get('user-agent')?.includes('vercel-cron');
+  // Vercel Cron의 경우 자동 인증 (user-agent에 'vercel-cron' 포함)
+  // 또는 Authorization 헤더에 'Bearer' 토큰이 있는 경우
+  const isVercelCron = 
+    request.headers.get('user-agent')?.includes('vercel-cron') ||
+    request.headers.get('x-vercel-cron') === '1';
   
-  if (!isVercelCron && cronSecret) {
-    // 수동 호출인 경우에만 Bearer 토큰 검증
+  // Vercel Cron이 아닌 경우에만 Bearer 토큰 검증
+  if (!isVercelCron) {
+    if (!cronSecret) {
+      return NextResponse.json(
+        { error: 'Cron secret not configured' },
+        { status: 500 }
+      );
+    }
+    
     if (authHeader !== `Bearer ${cronSecret}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
