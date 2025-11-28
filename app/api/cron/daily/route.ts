@@ -4,18 +4,19 @@ import { siteConfig } from '@/site.config';
 export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
+  // Vercel Cron은 자동으로 Authorization 헤더를 추가합니다
+  // 환경 변수에서 Vercel Cron Secret 확인
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
-
-  if (!cronSecret) {
-    return NextResponse.json(
-      { error: 'Cron secret not configured' },
-      { status: 500 }
-    );
-  }
-
-  if (authHeader !== `Bearer ${cronSecret}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  
+  // Vercel Cron의 경우 자동 인증되지만, 수동 호출을 위한 검증도 포함
+  const isVercelCron = request.headers.get('user-agent')?.includes('vercel-cron');
+  
+  if (!isVercelCron && cronSecret) {
+    // 수동 호출인 경우에만 Bearer 토큰 검증
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
   }
 
   try {
