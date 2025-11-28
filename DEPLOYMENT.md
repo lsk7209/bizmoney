@@ -47,6 +47,7 @@ Vercel 대시보드 > Project Settings > Environment Variables에서 다음 변�
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console 인증 | ⚠️ SEO 최적화 |
 | `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` | Naver Search Advisor 인증 | ⚠️ 한국 SEO |
 | `CRON_SECRET` | Cron API 보안 키 | ⚠️ Cron 사용 시 |
+| `ADMIN_PASSWORD` | 관리자 대시보드 비밀번호 | ⚠️ 관리자 페이지 사용 시 |
 
 **중요**: `NEXT_PUBLIC_*` 접두사가 있는 변수는 클라이언트에서 접근 가능합니다.
 
