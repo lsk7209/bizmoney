@@ -2,15 +2,19 @@ import { redirect } from 'next/navigation';
 import { checkAdminSession } from '@/lib/admin-auth';
 import Link from 'next/link';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const isAuthenticated = await checkAdminSession();
-
-  if (!isAuthenticated) {
-    redirect('/admin/login');
+  // 개발 환경에서는 인증 체크 완전히 우회
+  if (!isDevelopment) {
+    const isAuthenticated = await checkAdminSession();
+    if (!isAuthenticated) {
+      redirect('/admin/login');
+    }
   }
 
   return (
