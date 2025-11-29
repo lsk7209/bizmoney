@@ -17,7 +17,7 @@ const nextConfig = {
     remotePatterns: [],
   },
   // Vercel 최적화 설정
-  output: 'standalone',
+  // output: 'standalone' - Vercel에서는 자동으로 처리되므로 제거
   poweredByHeader: false,
   compress: true,
   async headers() {

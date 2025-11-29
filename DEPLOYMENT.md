@@ -159,9 +159,10 @@ Vercel 대시보드 > Project Settings > Environment Variables에서 다음 변�
 
 ### 6.1 빌드 최적화
 - `next.config.js`에 이미 최적화 설정 포함:
-  - `output: 'standalone'` - 독립 실행 파일 생성
   - `compress: true` - Gzip 압축 활성화
   - `poweredByHeader: false` - 보안 헤더 제거
+  - Security Headers 설정 (X-Frame-Options, X-Content-Type-Options 등)
+  - **참고**: `output: 'standalone'`은 Vercel에서 자동으로 처리되므로 설정하지 않습니다.
 
 ### 6.2 Edge Runtime 활용
 - 모든 API 라우트는 Edge Runtime 사용 (`export const runtime = 'edge'`)

@@ -1,15 +1,18 @@
 // Vercel 배포 시 환경 변수 검증
 const getSiteUrl = (): string => {
   const url = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!url || url === 'https://example.com') {
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`;
-    }
-    if (process.env.VERCEL) {
-      // Vercel 배포 환경에서는 VERCEL_URL 사용
-      return 'https://example.com';
-    }
+  
+  // NEXT_PUBLIC_SITE_URL이 설정되어 있고 기본값이 아니면 사용
+  if (url && url !== 'https://example.com') {
+    return url;
   }
+  
+  // Vercel 배포 환경에서는 VERCEL_URL 자동 사용
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // 기본값 (개발 환경)
   return url || 'https://example.com';
 };
 
