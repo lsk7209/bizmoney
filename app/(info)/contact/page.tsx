@@ -65,9 +65,23 @@ export function generateMetadata() {
   return {
     title: `문의하기 - ${siteConfig.name}`,
     description: `${siteConfig.name}에 대한 문의사항을 남겨주세요. 이메일을 통해 연락드립니다.`,
+    keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: `${siteConfig.url}/contact`,
+    },
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      title: `문의하기 - ${siteConfig.name}`,
+      description: `${siteConfig.name}에 대한 문의사항을 남겨주세요. 이메일을 통해 연락드립니다.`,
+      url: `${siteConfig.url}/contact`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `문의하기 - ${siteConfig.name}`,
+      description: `${siteConfig.name}에 대한 문의사항을 남겨주세요. 이메일을 통해 연락드립니다.`,
     },
   };
 }

@@ -127,15 +127,34 @@ export async function generateMetadata({ params }: BlogPageProps) {
   const { page } = await params;
   const currentPage = parseInt(page, 10);
   const totalPages = getTotalPages(siteConfig.blog.postsPerPage);
+  const baseUrl = `${siteConfig.url}/blog${currentPage > 1 ? `/page/${currentPage}` : ''}`;
   
   return {
     title: currentPage > 1 
       ? `블로그 - 페이지 ${currentPage} - ${siteConfig.name}`
       : `블로그 - ${siteConfig.name}`,
     description: siteConfig.seo.defaultDescription,
+    keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: baseUrl,
+    },
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      title: currentPage > 1 
+        ? `블로그 - 페이지 ${currentPage} - ${siteConfig.name}`
+        : `블로그 - ${siteConfig.name}`,
+      description: siteConfig.seo.defaultDescription,
+      url: baseUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: currentPage > 1 
+        ? `블로그 - 페이지 ${currentPage} - ${siteConfig.name}`
+        : `블로그 - ${siteConfig.name}`,
+      description: siteConfig.seo.defaultDescription,
     },
   };
 }

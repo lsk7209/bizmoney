@@ -4,6 +4,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { ViewCounter } from '@/components/growth-engine/ViewCounter';
 import { formatDate } from '@/lib/utils';
 import { siteConfig } from '@/site.config';
+import Link from 'next/link';
 import { Callout } from '@/components/growth-engine/ui-blocks/Callout';
 import { ProsCons } from '@/components/growth-engine/ui-blocks/ProsCons';
 import {
@@ -52,7 +53,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article className="container mx-auto px-4 py-12 max-w-4xl">
       <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <h1 className="text-4xl font-bold mb-4">{post.h1 || post.title}</h1>
         <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
           <time
             dateTime={post.date}
@@ -78,6 +79,65 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           }}
         />
       </div>
+
+      {/* CTA (Call To Action) */}
+      {post.cta && (
+        <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="text-center">
+            <p className="text-lg font-semibold mb-4 text-foreground">{post.cta.text}</p>
+            <Link
+              href={post.cta.url}
+              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              바로가기 →
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Internal Links (Inlinks) */}
+      {post.internalLinks && post.internalLinks.length > 0 && (
+        <section className="mt-12 pt-8 border-t">
+          <h2 className="text-2xl font-semibold mb-4">관련 글</h2>
+          <ul className="space-y-2">
+            {post.internalLinks.map((linkSlug, index) => {
+              const linkedPost = getAllPosts().find((p) => p.slug === linkSlug);
+              if (!linkedPost) return null;
+              return (
+                <li key={index}>
+                  <Link
+                    href={`/blog/${linkSlug}`}
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {linkedPost.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {/* External Links (Outlinks) */}
+      {post.externalLinks && post.externalLinks.length > 0 && (
+        <section className="mt-8 pt-8 border-t">
+          <h2 className="text-2xl font-semibold mb-4">참고 자료</h2>
+          <ul className="space-y-2">
+            {post.externalLinks.map((link, index) => (
+              <li key={index}>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {link.description || link.url}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {post.tags && post.tags.length > 0 && (
         <footer className="mt-12 pt-8 border-t">

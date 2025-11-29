@@ -100,9 +100,23 @@ export function generateMetadata() {
   return {
     title: `이용약관 - ${siteConfig.name}`,
     description: `${siteConfig.name}의 이용약관입니다. 서비스 이용 전 반드시 확인해주세요.`,
+    keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: `${siteConfig.url}/terms`,
+    },
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      title: `이용약관 - ${siteConfig.name}`,
+      description: `${siteConfig.name}의 이용약관입니다. 서비스 이용 전 반드시 확인해주세요.`,
+      url: `${siteConfig.url}/terms`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `이용약관 - ${siteConfig.name}`,
+      description: `${siteConfig.name}의 이용약관입니다. 서비스 이용 전 반드시 확인해주세요.`,
     },
   };
 }

@@ -40,9 +40,23 @@ export function generateMetadata() {
   return {
     title: `소개 - ${siteConfig.name}`,
     description: siteConfig.description,
+    keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: `${siteConfig.url}/about`,
+    },
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      title: `소개 - ${siteConfig.name}`,
+      description: siteConfig.description,
+      url: `${siteConfig.url}/about`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `소개 - ${siteConfig.name}`,
+      description: siteConfig.description,
     },
   };
 }

@@ -128,15 +128,34 @@ export default async function ToolsPage({ params }: ToolsPageProps) {
 export async function generateMetadata({ params }: ToolsPageProps) {
   const { page } = await params;
   const currentPage = parseInt(page, 10);
+  const baseUrl = `${siteConfig.url}/tools${currentPage > 1 ? `/page/${currentPage}` : ''}`;
   
   return {
     title: currentPage > 1
       ? `도구 - 페이지 ${currentPage} - ${siteConfig.name}`
       : `도구 - ${siteConfig.name}`,
     description: '유용한 온라인 도구 모음',
+    keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: baseUrl,
+    },
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      title: currentPage > 1
+        ? `도구 - 페이지 ${currentPage} - ${siteConfig.name}`
+        : `도구 - ${siteConfig.name}`,
+      description: '유용한 온라인 도구 모음',
+      url: baseUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: currentPage > 1
+        ? `도구 - 페이지 ${currentPage} - ${siteConfig.name}`
+        : `도구 - ${siteConfig.name}`,
+      description: '유용한 온라인 도구 모음',
     },
   };
 }

@@ -75,6 +75,9 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t text-center text-sm text-foreground/60">
           <p>© {currentYear} {siteConfig.name}. All rights reserved.</p>
+          <p className="mt-2">
+            <a href="/feed.xml" className="hover:underline">RSS 피드</a>
+          </p>
         </div>
       </div>
     </footer>

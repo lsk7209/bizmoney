@@ -55,10 +55,24 @@ export default function PrivacyPage() {
 export function generateMetadata() {
   return {
     title: `개인정보 처리방침 - ${siteConfig.name}`,
-    description: '개인정보 처리방침',
+    description: `${siteConfig.name}의 개인정보 처리방침입니다.`,
+    keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: `${siteConfig.url}/privacy`,
+    },
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      title: `개인정보 처리방침 - ${siteConfig.name}`,
+      description: `${siteConfig.name}의 개인정보 처리방침입니다.`,
+      url: `${siteConfig.url}/privacy`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `개인정보 처리방침 - ${siteConfig.name}`,
+      description: `${siteConfig.name}의 개인정보 처리방침입니다.`,
     },
   };
 }

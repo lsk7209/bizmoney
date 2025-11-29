@@ -130,6 +130,9 @@ export function generateMetadata() {
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
     keywords: siteConfig.seo.defaultKeywords,
+    alternates: {
+      canonical: siteConfig.url,
+    },
     openGraph: {
       title: siteConfig.seo.defaultTitle,
       description: siteConfig.seo.defaultDescription,
