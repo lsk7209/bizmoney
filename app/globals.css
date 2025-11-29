@@ -51,4 +51,14 @@ body {
   }
 }
 
+/* 관리자 페이지에서 Header/Footer 숨기기 */
+.admin-layout-wrapper header,
+.admin-layout-wrapper footer {
+  display: none !important;
+}
+
+.admin-layout-wrapper main#main-content {
+  padding: 0 !important;
+  margin: 0 !important;
+}
 

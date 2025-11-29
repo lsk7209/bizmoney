@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import './admin-layout.css';
 
 export default function AdminLayout({
   children,
