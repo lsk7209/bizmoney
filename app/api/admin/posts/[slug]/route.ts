@@ -3,6 +3,9 @@ import { checkAdminAuth } from '@/lib/admin-auth';
 import { getPostBySlugForAdmin, updatePostFile, deletePostFile, validatePublish } from '@/lib/admin';
 import type { BlogPostFrontmatter } from '@/types/blog';
 
+// 파일 시스템 접근이 필요하므로 Node.js Runtime 사용
+export const runtime = 'nodejs';
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }

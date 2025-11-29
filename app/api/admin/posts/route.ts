@@ -3,6 +3,9 @@ import { checkAdminAuth } from '@/lib/admin-auth';
 import { createPostFile, getPostBySlugForAdmin, validatePublish } from '@/lib/admin';
 import type { BlogPostFrontmatter } from '@/types/blog';
 
+// 파일 시스템 접근이 필요하므로 Node.js Runtime 사용
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   if (!checkAdminAuth(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
