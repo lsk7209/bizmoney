@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { ConditionalHeaderFooter } from '@/components/layout/ConditionalHeaderFooter';
 import { GoogleAdSense } from '@/components/growth-engine/GoogleAdSense';
 import { siteConfig } from '@/site.config';
 
@@ -65,13 +64,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={inter.variable}>
-      <body className="min-h-screen flex flex-col admin-layout-wrapper">
+      <body className="min-h-screen flex flex-col">
         {siteConfig.adsense.enabled && <GoogleAdSense />}
-        <Header />
-        <main id="main-content" className="flex-1" tabIndex={-1}>
-          {children}
-        </main>
-        <Footer />
+        <ConditionalHeaderFooter>{children}</ConditionalHeaderFooter>
       </body>
     </html>
   );
