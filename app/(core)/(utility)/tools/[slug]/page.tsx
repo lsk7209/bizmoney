@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getTool, getAllPublishedTools } from '@/lib/tools';
 import { ViewCounter } from '@/components/growth-engine/ViewCounter';
 import { siteConfig } from '@/site.config';
+import { optimizeToolMeta } from '@/lib/seo-optimize';
 
 interface ToolPageProps {
   params: Promise<{
@@ -72,22 +73,25 @@ export async function generateMetadata({ params }: ToolPageProps) {
     };
   }
 
+  // SEO 자동 최적화 적용
+  const optimized = optimizeToolMeta(tool);
+
   return {
-    title: tool.metaTitle || tool.title,
-    description: tool.metaDescription || tool.description,
-    keywords: tool.keywords?.join(', '),
+    title: optimized.metaTitle,
+    description: optimized.metaDescription,
+    keywords: optimized.keywords.join(', '),
     alternates: {
       canonical: tool.canonicalUrl || `${siteConfig.url}/tools/${slug}`,
     },
     openGraph: {
-      title: tool.metaTitle || tool.title,
-      description: tool.metaDescription || tool.description,
+      title: optimized.metaTitle,
+      description: optimized.metaDescription,
       url: `${siteConfig.url}/tools/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: tool.metaTitle || tool.title,
-      description: tool.metaDescription || tool.description,
+      title: optimized.metaTitle,
+      description: optimized.metaDescription,
     },
   };
 }

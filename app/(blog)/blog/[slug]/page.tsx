@@ -4,6 +4,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { ViewCounter } from '@/components/growth-engine/ViewCounter';
 import { formatDate } from '@/lib/utils';
 import { siteConfig } from '@/site.config';
+import { optimizeBlogPostMeta } from '@/lib/seo-optimize';
 import Link from 'next/link';
 import { Callout } from '@/components/growth-engine/ui-blocks/Callout';
 import { ProsCons } from '@/components/growth-engine/ui-blocks/ProsCons';
@@ -50,10 +51,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // SEO 자동 최적화 적용
+  const optimized = optimizeBlogPostMeta(post);
+
   return (
     <article className="container mx-auto px-4 py-12 max-w-4xl">
       <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">{post.h1 || post.title}</h1>
+        <h1 className="text-4xl font-bold mb-4">{optimized.h1}</h1>
         <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
           <time
             dateTime={post.date}
@@ -167,24 +171,27 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     };
   }
 
+  // SEO 자동 최적화 적용
+  const optimized = optimizeBlogPostMeta(post);
+
   return {
-    title: post.metaTitle || post.title,
-    description: post.metaDescription || post.description,
-    keywords: post.keywords?.join(', '),
+    title: optimized.metaTitle,
+    description: optimized.metaDescription,
+    keywords: optimized.keywords.join(', '),
     alternates: {
       canonical: post.canonicalUrl || `${siteConfig.url}/blog/${slug}`,
     },
     openGraph: {
-      title: post.metaTitle || post.title,
-      description: post.metaDescription || post.description,
+      title: optimized.metaTitle,
+      description: optimized.metaDescription,
       type: 'article',
       publishedTime: post.date,
       url: `${siteConfig.url}/blog/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.metaTitle || post.title,
-      description: post.metaDescription || post.description,
+      title: optimized.metaTitle,
+      description: optimized.metaDescription,
     },
   };
 }
