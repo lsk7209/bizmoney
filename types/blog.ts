@@ -27,6 +27,11 @@ export interface BlogPost {
     description: string;
   }>;
   content: string;
+  ogImage?: string;
+  faq?: Array<{
+    question: string;
+    answer: string;
+  }>;
 }
 
 export interface BlogPostFrontmatter {
@@ -53,6 +58,11 @@ export interface BlogPostFrontmatter {
   externalLinks?: Array<{
     url: string;
     description: string;
+  }>;
+  ogImage?: string;
+  faq?: Array<{
+    question: string;
+    answer: string;
   }>;
 }
 

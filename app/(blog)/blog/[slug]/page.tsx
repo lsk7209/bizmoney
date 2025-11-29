@@ -5,6 +5,7 @@ import { ViewCounter } from '@/components/growth-engine/ViewCounter';
 import { formatDate } from '@/lib/utils';
 import { siteConfig } from '@/site.config';
 import { optimizeBlogPostMeta } from '@/lib/seo-optimize';
+import { StructuredData } from '@/components/growth-engine/StructuredData';
 import Link from 'next/link';
 import { Callout } from '@/components/growth-engine/ui-blocks/Callout';
 import { ProsCons } from '@/components/growth-engine/ui-blocks/ProsCons';
@@ -55,8 +56,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const optimized = optimizeBlogPostMeta(post);
 
   return (
-    <article className="container mx-auto px-4 py-12 max-w-4xl">
-      <header className="mb-8">
+    <>
+      <StructuredData post={post} />
+      <article className="container mx-auto px-4 py-12 max-w-4xl">
+        <header className="mb-8">
         <h1 className="text-4xl font-bold mb-4">{optimized.h1}</h1>
         <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
           <time
@@ -158,6 +161,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </footer>
       )}
     </article>
+    </>
   );
 }
 
