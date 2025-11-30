@@ -6,8 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { calculateWithholdingTax, formatCurrency, WithholdingTaxInput } from '@/lib/withholding-tax-logic';
-import { AdModal } from '@/components/ads/AdModal';
-import { AdSlot } from '@/components/ads/AdSlot';
 
 const BUSINESS_TYPES = [
   { code: 'freelancer', name: '프리랜서' },
@@ -26,19 +24,9 @@ export function WithholdingTaxCalculator() {
 
   const [result, setResult] = useState<ReturnType<typeof calculateWithholdingTax> | null>(null);
   const [hasCalculated, setHasCalculated] = useState(false);
-  const [showAdModal, setShowAdModal] = useState(false);
   const contractAmountInputRef = useRef<HTMLInputElement>(null);
   const resultSectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const hasSeenAd = sessionStorage.getItem('biz-wallet-withholding-ad-seen');
-    if (!hasSeenAd) {
-      setTimeout(() => {
-        setShowAdModal(true);
-        sessionStorage.setItem('biz-wallet-withholding-ad-seen', 'true');
-      }, 1000);
-    }
-  }, []);
 
   const handleCalculate = useCallback(() => {
     try {
@@ -274,7 +262,6 @@ export function WithholdingTaxCalculator() {
 
       {result && hasCalculated && (
         <div className="my-8 flex justify-center">
-          <AdSlot slotId="slot-b" format="auto" className="w-full" style={{ minHeight: '250px' }} />
         </div>
       )}
 
@@ -309,7 +296,6 @@ export function WithholdingTaxCalculator() {
             </section>
 
             <div className="my-8 flex justify-center">
-              <AdSlot slotId="slot-c" format="auto" className="w-full" style={{ minHeight: '250px' }} />
             </div>
 
             <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
@@ -326,7 +312,6 @@ export function WithholdingTaxCalculator() {
         </div>
       </article>
 
-      <AdModal isOpen={showAdModal} onClose={() => setShowAdModal(false)} slotId="slot-a" />
     </div>
   );
 }

@@ -3,8 +3,6 @@
 import { useState, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AdModal } from '@/components/ads/AdModal';
-import { AdSlot } from '@/components/ads/AdSlot';
 
 interface ChecklistItem {
   id: string;
@@ -141,7 +139,6 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
 
 export function TaxFilingChecklist() {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
-  const [showAdModal, setShowAdModal] = useState(false);
 
   const handleToggle = useCallback((id: string) => {
     setCheckedItems((prev) => {
@@ -386,7 +383,6 @@ https://biz-wallet.com/tax-checklist
 
       {/* Slot B */}
       <div className="my-8 flex justify-center">
-        <AdSlot slotId="slot-b" format="auto" className="w-full" style={{ minHeight: '250px' }} />
       </div>
 
       {/* SEO 콘텐츠 */}
@@ -425,7 +421,6 @@ https://biz-wallet.com/tax-checklist
             </section>
 
             <div className="my-8 flex justify-center">
-              <AdSlot slotId="slot-c" format="auto" className="w-full" style={{ minHeight: '250px' }} />
             </div>
 
             <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
@@ -442,7 +437,6 @@ https://biz-wallet.com/tax-checklist
         </div>
       </article>
 
-      <AdModal isOpen={showAdModal} onClose={() => setShowAdModal(false)} slotId="slot-a" />
     </div>
   );
 }

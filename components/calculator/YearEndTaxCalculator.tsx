@@ -6,8 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { calculateYearEndTax, formatCurrency, YearEndTaxInput } from '@/lib/year-end-tax-logic';
-import { AdModal } from '@/components/ads/AdModal';
-import { AdSlot } from '@/components/ads/AdSlot';
 
 export function YearEndTaxCalculator() {
   const [input, setInput] = useState<YearEndTaxInput>({
@@ -25,20 +23,10 @@ export function YearEndTaxCalculator() {
 
   const [result, setResult] = useState<ReturnType<typeof calculateYearEndTax> | null>(null);
   const [hasCalculated, setHasCalculated] = useState(false);
-  const [showAdModal, setShowAdModal] = useState(false);
   const annualSalaryInputRef = useRef<HTMLInputElement>(null);
   const resultSectionRef = useRef<HTMLDivElement>(null);
 
   // Slot A 광고 모달 표시
-  useEffect(() => {
-    const hasSeenAd = sessionStorage.getItem('biz-wallet-year-end-ad-seen');
-    if (!hasSeenAd) {
-      setTimeout(() => {
-        setShowAdModal(true);
-        sessionStorage.setItem('biz-wallet-year-end-ad-seen', 'true');
-      }, 1000);
-    }
-  }, []);
 
   const handleCalculate = useCallback(() => {
     try {
@@ -421,7 +409,6 @@ export function YearEndTaxCalculator() {
       {/* Slot B */}
       {result && hasCalculated && (
         <div className="my-8 flex justify-center">
-          <AdSlot slotId="slot-b" format="auto" className="w-full" style={{ minHeight: '250px' }} />
         </div>
       )}
 
@@ -456,7 +443,6 @@ export function YearEndTaxCalculator() {
             </section>
 
             <div className="my-8 flex justify-center">
-              <AdSlot slotId="slot-c" format="auto" className="w-full" style={{ minHeight: '250px' }} />
             </div>
 
             <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
@@ -472,7 +458,6 @@ export function YearEndTaxCalculator() {
         </div>
       </article>
 
-      <AdModal isOpen={showAdModal} onClose={() => setShowAdModal(false)} slotId="slot-a" />
     </div>
   );
 }

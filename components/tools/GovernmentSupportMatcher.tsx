@@ -6,8 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { matchGovernmentSupport, SupportMatchingInput, GovernmentSupport } from '@/lib/government-support';
-import { AdModal } from '@/components/ads/AdModal';
-import { AdSlot } from '@/components/ads/AdSlot';
 
 const BUSINESS_TYPES = [
   'IT/소프트웨어',
@@ -54,7 +52,6 @@ export function GovernmentSupportMatcher() {
 
   const [results, setResults] = useState<GovernmentSupport[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
-  const [showAdModal, setShowAdModal] = useState(false);
 
   const handleSearch = useCallback(() => {
     const matched = matchGovernmentSupport(input);
@@ -241,7 +238,6 @@ export function GovernmentSupportMatcher() {
 
       {hasSearched && (
         <div className="my-8 flex justify-center">
-          <AdSlot slotId="slot-b" format="auto" className="w-full" style={{ minHeight: '250px' }} />
         </div>
       )}
 
@@ -281,7 +277,6 @@ export function GovernmentSupportMatcher() {
             </section>
 
             <div className="my-8 flex justify-center">
-              <AdSlot slotId="slot-c" format="auto" className="w-full" style={{ minHeight: '250px' }} />
             </div>
 
             <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
@@ -298,7 +293,6 @@ export function GovernmentSupportMatcher() {
         </div>
       </article>
 
-      <AdModal isOpen={showAdModal} onClose={() => setShowAdModal(false)} slotId="slot-a" />
     </div>
   );
 }

@@ -6,8 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { calculateVAT, formatCurrency, VATCalculatorInput } from '@/lib/vat-logic';
-import { AdModal } from '@/components/ads/AdModal';
-import { AdSlot } from '@/components/ads/AdSlot';
 
 const SUPPLY_TYPES = [
   { code: 'taxable', name: '과세' },
@@ -24,20 +22,9 @@ export function VATCalculator() {
 
   const [result, setResult] = useState<ReturnType<typeof calculateVAT> | null>(null);
   const [hasCalculated, setHasCalculated] = useState(false);
-  const [showAdModal, setShowAdModal] = useState(false);
   const totalAmountInputRef = useRef<HTMLInputElement>(null);
   const resultSectionRef = useRef<HTMLDivElement>(null);
 
-  // Slot A 광고 모달 표시
-  useEffect(() => {
-    const hasSeenAd = sessionStorage.getItem('biz-wallet-vat-ad-seen');
-    if (!hasSeenAd) {
-      setTimeout(() => {
-        setShowAdModal(true);
-        sessionStorage.setItem('biz-wallet-vat-ad-seen', 'true');
-      }, 1000);
-    }
-  }, []);
 
   const handleCalculate = useCallback(() => {
     try {
@@ -343,16 +330,6 @@ export function VATCalculator() {
       )}
 
       {/* Slot B: 계산 결과값 바로 하단 */}
-      {result && hasCalculated && (
-        <div className="my-8 flex justify-center">
-          <AdSlot 
-            slotId="slot-b" 
-            format="auto"
-            className="w-full"
-            style={{ minHeight: '250px' }}
-          />
-        </div>
-      )}
 
       {/* SEO 콘텐츠 래퍼 */}
       <article className="prose prose-lg max-w-none dark:prose-invert mt-16">
@@ -386,15 +363,6 @@ export function VATCalculator() {
               </p>
             </section>
 
-            {/* Slot C */}
-            <div className="my-8 flex justify-center">
-              <AdSlot 
-                slotId="slot-c" 
-                format="auto"
-                className="w-full"
-                style={{ minHeight: '250px' }}
-              />
-            </div>
 
             <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-yellow-800 dark:text-yellow-200">
@@ -410,12 +378,6 @@ export function VATCalculator() {
         </div>
       </article>
 
-      {/* Slot A: 전면 모달 */}
-      <AdModal
-        isOpen={showAdModal}
-        onClose={() => setShowAdModal(false)}
-        slotId="slot-a"
-      />
     </div>
   );
 }

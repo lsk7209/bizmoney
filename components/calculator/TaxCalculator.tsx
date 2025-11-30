@@ -9,8 +9,6 @@ import { calculateTax, formatCurrency, formatRange } from '@/lib/tax-logic';
 import { saveCalculatorInput, loadCalculatorInput, clearCalculatorInput } from '@/lib/storage';
 import { TaxCalculatorInput, TaxCalculatorOutput } from '@/types/tax';
 import { BUSINESS_TYPES } from '@/constants/tax-rates';
-import { AdModal } from '@/components/ads/AdModal';
-import { AdSlot } from '@/components/ads/AdSlot';
 
 export function TaxCalculator() {
   const [input, setInput] = useState<TaxCalculatorInput>({
@@ -21,11 +19,10 @@ export function TaxCalculator() {
 
   const [result, setResult] = useState<TaxCalculatorOutput | null>(null);
   const [hasCalculated, setHasCalculated] = useState(false);
-  const [showAdModal, setShowAdModal] = useState(false);
   const annualIncomeInputRef = useRef<HTMLInputElement>(null);
   const resultSectionRef = useRef<HTMLDivElement>(null);
 
-  // LocalStorage에서 복구 및 Slot A 광고 모달 표시
+  // LocalStorage에서 복구
   useEffect(() => {
     const stored = loadCalculatorInput();
     if (stored) {
@@ -34,15 +31,6 @@ export function TaxCalculator() {
         annualIncome: stored.annualIncome,
         dependents: stored.dependents,
       });
-    }
-    
-    // Slot A: 계산기 로딩 시 전면 모달 (한 번만 표시)
-    const hasSeenAd = sessionStorage.getItem('biz-wallet-ad-seen');
-    if (!hasSeenAd) {
-      setTimeout(() => {
-        setShowAdModal(true);
-        sessionStorage.setItem('biz-wallet-ad-seen', 'true');
-      }, 1000); // 1초 후 표시
     }
   }, []);
 
@@ -317,7 +305,7 @@ export function TaxCalculator() {
         </CardContent>
       </Card>
 
-      {/* 결과 섹션 - 유익 강조 */}
+      {/* 결과 섹션 - 유익 강조 및 바이럴 요소 */}
       {result && hasCalculated && (
         <Card 
           ref={resultSectionRef}
@@ -341,59 +329,165 @@ export function TaxCalculator() {
               </div>
             </div>
           </CardHeader>
-              <CardContent className="space-y-6 pt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-lg">📊</span>
-                      <div className="text-base font-semibold text-muted-foreground">소득금액</div>
-                    </div>
-                    <div className="text-xl font-bold text-foreground">
-                      {formatRange(result.incomeAmountRange.min, result.incomeAmountRange.max)}
-                    </div>
-                  </div>
+          <CardContent className="space-y-6 pt-6">
+            {/* 핵심 결과 - 눈에 띄게 */}
+            <div className="p-8 bg-gradient-to-br from-blue-50 via-green-50 to-emerald-50 dark:from-blue-950/40 dark:via-green-950/40 dark:to-emerald-950/40 rounded-2xl border-4 border-green-400 dark:border-green-600 shadow-2xl text-center">
+              <div className="mb-4">
+                <span className="text-4xl">🎯</span>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground">
+                내가 내야 할 예상 세액은?
+              </h3>
+              <div className="text-4xl md:text-5xl font-bold text-red-600 dark:text-red-400 mb-2">
+                {formatRange(result.totalTaxRange.min, result.totalTaxRange.max)}
+              </div>
+              <p className="text-base text-foreground/70 mt-3">
+                💡 원천징수된 3.3%와 비교하면 환급받을 수도 있어요!
+              </p>
+            </div>
 
-                  <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-lg">📋</span>
-                      <div className="text-base font-semibold text-muted-foreground">과세표준</div>
-                    </div>
-                    <div className="text-xl font-bold text-foreground">{formatCurrency(result.taxableBase)}</div>
-                  </div>
-
-                  <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-lg">💵</span>
-                      <div className="text-base font-semibold text-muted-foreground">예상 소득세</div>
-                    </div>
-                    <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
-                      {formatRange(result.calculatedTaxRange.min, result.calculatedTaxRange.max)}
-                    </div>
-                  </div>
-
-                  <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-lg">🏛️</span>
-                      <div className="text-base font-semibold text-muted-foreground">지방소득세</div>
-                    </div>
-                    <div className="text-xl font-bold text-foreground">
-                      {formatRange(result.localTaxRange.min, result.localTaxRange.max)}
-                    </div>
-                  </div>
-
-                  <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/40 dark:to-red-900/20 rounded-xl border-2 border-red-300 dark:border-red-700 shadow-lg md:col-span-2">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-2xl">⚠️</span>
-                      <div className="text-base font-bold text-red-700 dark:text-red-400">총 세액 (납부 예상액)</div>
-                    </div>
-                    <div className="text-3xl md:text-4xl font-bold text-red-600 dark:text-red-400">
-                      {formatRange(result.totalTaxRange.min, result.totalTaxRange.max)}
-                    </div>
-                    <p className="text-sm text-red-600/90 dark:text-red-400/90 mt-3 font-medium">
-                      * 위 금액은 납부해야 할 예상 세액입니다.
-                    </p>
-                  </div>
+            {/* 상세 내역 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📊</span>
+                  <div className="text-base font-semibold text-muted-foreground">소득금액</div>
                 </div>
+                <div className="text-xl font-bold text-foreground">
+                  {formatRange(result.incomeAmountRange.min, result.incomeAmountRange.max)}
+                </div>
+                <p className="text-xs text-foreground/60 mt-2">단순경비율 적용 후 금액</p>
+              </div>
+
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📋</span>
+                  <div className="text-base font-semibold text-muted-foreground">과세표준</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.taxableBase)}</div>
+                <p className="text-xs text-foreground/60 mt-2">세율 적용 기준 금액</p>
+              </div>
+
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">💵</span>
+                  <div className="text-base font-semibold text-muted-foreground">예상 소득세</div>
+                </div>
+                <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                  {formatRange(result.calculatedTaxRange.min, result.calculatedTaxRange.max)}
+                </div>
+                <p className="text-xs text-foreground/60 mt-2">누진세율 적용</p>
+              </div>
+
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🏛️</span>
+                  <div className="text-base font-semibold text-muted-foreground">지방소득세</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">
+                  {formatRange(result.localTaxRange.min, result.localTaxRange.max)}
+                </div>
+                <p className="text-xs text-foreground/60 mt-2">소득세의 10%</p>
+              </div>
+            </div>
+
+            {/* 절세 팁 섹션 - 바이럴 요소 */}
+            <div className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-xl border-2 border-purple-200 dark:border-purple-800">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <span className="text-2xl">💡</span>
+                <span>이 금액을 더 줄일 수 있는 방법은?</span>
+              </h3>
+              <div className="space-y-3">
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 노란우산공제 가입하기
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    연간 최대 500만원까지 소득공제! 프리랜서를 위한 퇴직금 제도예요.
+                  </p>
+                </div>
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 개인형 퇴직연금(IRP) 활용하기
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    세액공제 혜택으로 세금을 더 줄일 수 있어요. 노후 대비도 되고 일석이조!
+                  </p>
+                </div>
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 실제 경비가 많다면 간편장부 신고
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    단순경비율보다 실제 경비가 많다면 간편장부로 신고하면 더 유리할 수 있어요!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 실제 사례 비교 - 바이럴 요소 */}
+            <div className="p-6 bg-blue-50 dark:bg-blue-950/30 rounded-xl border-2 border-blue-200 dark:border-blue-800">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <span className="text-2xl">📊</span>
+                <span>실제 사례 비교</span>
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg">
+                  <span className="font-medium">연봉 3,000만원 프리랜서</span>
+                  <span className="font-bold text-blue-600 dark:text-blue-400">약 50~80만원</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg">
+                  <span className="font-medium">연봉 5,000만원 프리랜서</span>
+                  <span className="font-bold text-blue-600 dark:text-blue-400">약 150~200만원</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg">
+                  <span className="font-medium">연봉 8,000만원 프리랜서</span>
+                  <span className="font-bold text-blue-600 dark:text-blue-400">약 400~500만원</span>
+                </div>
+              </div>
+              <p className="text-xs text-foreground/60 mt-3">
+                * 실제 세액은 공제 항목, 부양가족 수 등에 따라 달라질 수 있어요.
+              </p>
+            </div>
+
+            {/* 공유 버튼 - 바이럴 요소 */}
+            <div className="p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl border-2 border-green-200 dark:border-green-800">
+              <p className="text-center font-semibold text-base mb-4 text-foreground">
+                🎉 친구들도 계산해보라고 공유해보세요!
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(
+                        `프리랜서 세금 계산기로 내 예상 세액을 확인했어요! 💰\n\n${typeof window !== 'undefined' ? window.location.href : ''}`
+                      );
+                      alert('링크가 클립보드에 복사되었습니다!');
+                    } catch (err) {
+                      alert('복사에 실패했습니다.');
+                    }
+                  }}
+                  variant="outline"
+                  className="border-2 hover:bg-green-50 dark:hover:bg-green-950/50"
+                  size="lg"
+                >
+                  📋 링크 복사
+                </Button>
+                <Button
+                  onClick={() => {
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      `프리랜서 세금 계산기로 내 예상 세액을 확인했어요! 💰\n\n${typeof window !== 'undefined' ? window.location.href : ''}`
+                    )}`;
+                    window.open(twitterUrl, '_blank');
+                  }}
+                  variant="outline"
+                  className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/50"
+                  size="lg"
+                >
+                  🐦 트위터 공유
+                </Button>
+              </div>
+            </div>
 
             <div className="mt-8 p-6 bg-yellow-50 dark:bg-yellow-950/50 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl shadow-md">
               <p className="text-base font-semibold text-yellow-900 dark:text-yellow-100 leading-relaxed">
@@ -405,17 +499,6 @@ export function TaxCalculator() {
         </Card>
       )}
 
-      {/* Slot B: 계산 결과값 바로 하단 (네이티브 배너 형태) */}
-      {result && hasCalculated && (
-        <div className="my-8 flex justify-center">
-          <AdSlot 
-            slotId="slot-b" 
-            format="horizontal"
-            className="w-full max-w-728"
-            style={{ minHeight: '90px' }}
-          />
-        </div>
-      )}
 
       {/* SEO 콘텐츠 래퍼 (광고 슬롯 포함) */}
       <article className="prose prose-sm max-w-none dark:prose-invert mt-12">
@@ -449,15 +532,6 @@ export function TaxCalculator() {
           따라서 총 세액은 소득세와 지방소득세를 합한 금액입니다.
         </p>
 
-        {/* Slot C: 하단 정보성 아티클 중간 */}
-        <div className="my-8 flex justify-center">
-          <AdSlot 
-            slotId="slot-c" 
-            format="auto"
-            className="w-full"
-            style={{ minHeight: '250px' }}
-          />
-        </div>
 
         <h3 className="text-xl font-semibold mb-3 mt-6">주의사항</h3>
         <p className="text-base leading-relaxed mb-4">
@@ -467,12 +541,6 @@ export function TaxCalculator() {
         </p>
       </article>
 
-      {/* Slot A: 계산기 로딩 시 전면 모달 */}
-      <AdModal
-        isOpen={showAdModal}
-        onClose={() => setShowAdModal(false)}
-        slotId="slot-a"
-      />
     </div>
   );
 }
