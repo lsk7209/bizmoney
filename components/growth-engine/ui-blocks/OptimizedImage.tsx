@@ -15,6 +15,7 @@ interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> {
 export function OptimizedImage({ src, alt, title, ...props }: OptimizedImageProps) {
   // src가 없으면 일반 img 태그로 fallback
   if (!src) {
+    // eslint-disable-next-line @next/next/no-img-element
     return <img alt={alt || '이미지'} {...props} />;
   }
 
