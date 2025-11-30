@@ -48,7 +48,11 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
+      'noimageindex': false,
     },
+    // 중복 콘텐츠 방지
+    'noarchive': false,
+    'nosnippet': false,
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,

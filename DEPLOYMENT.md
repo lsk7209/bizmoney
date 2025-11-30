@@ -65,28 +65,36 @@ Vercel 대시보드 > Project Settings > Environment Variables에서 다음 변�
 
 ### 3.2 Cron Job 설정
 
-#### Vercel Pro 플랜 이상
-- `vercel.json`의 Cron 설정이 자동으로 활성화됩니다
+#### 옵션 1: Vercel Cron (Pro 플랜 이상 권장)
+- `vercel.json`에 크론 설정이 포함되어 있습니다
+- Vercel Pro 플랜 이상에서 자동으로 활성화됩니다
 - 매일 00:00 UTC에 `/api/cron/daily`가 자동 실행됩니다
+- **장점**: Vercel이 자동으로 인증 처리, 별도 설정 불필요
 
-#### Vercel Hobby 플랜
-**옵션 1: Vercel Cron Jobs (베타)**
-1. Project Settings > Cron Jobs
-2. 새 Cron Job 추가:
-   - Path: `/api/cron/daily`
-   - Schedule: `0 0 * * *` (매일 00:00 UTC)
-   - Authorization: Bearer Token 설정 (CRON_SECRET 사용)
+#### 옵션 2: GitHub Actions (무료, 권장)
+1. GitHub 저장소 > Settings > Secrets and variables > Actions
+2. 다음 시크릿 추가:
+   - `SITE_URL`: 배포된 사이트 URL (예: `https://your-domain.vercel.app`)
+   - `CRON_SECRET`: 크론 작업 보안 키 (랜덤 문자열)
+3. `.github/workflows/daily-cron.yml` 파일이 자동으로 매일 실행됩니다
+4. **장점**: 무료, 모든 플랜에서 사용 가능, 로그 확인 용이
 
-**옵션 2: 외부 서비스 사용**
-- [cron-job.org](https://cron-job.org) 또는 유사 서비스 사용
+#### 옵션 3: 외부 크론 서비스
+- [cron-job.org](https://cron-job.org) 또는 [EasyCron](https://www.easycron.com) 사용
 - URL: `https://your-domain.vercel.app/api/cron/daily`
 - Schedule: 매일 00:00 KST (또는 원하는 시간)
 - Headers: `Authorization: Bearer YOUR_CRON_SECRET`
+- **장점**: 간단한 설정, 무료 플랜 제공
 
 ### 3.3 GitHub Actions 설정
 1. GitHub 저장소 > Settings > Secrets and variables > Actions
-2. `GEMINI_API_KEY` 시크릿 추가
-3. Actions 탭에서 워크플로우가 활성화되었는지 확인
+2. 다음 시크릿 추가:
+   - `GEMINI_API_KEY`: Google Gemini API 키 (AI 콘텐츠 생성용)
+   - `SITE_URL`: 배포된 사이트 URL (크론 작업용, 선택)
+   - `CRON_SECRET`: 크론 작업 보안 키 (GitHub Actions 크론 사용 시)
+3. Actions 탭에서 워크플로우가 활성화되었는지 확인:
+   - `Organic Writer`: 4시간마다 AI 콘텐츠 생성
+   - `Daily Cron Job`: 매일 sitemap ping (선택)
 
 ## 4. 배포 확인
 

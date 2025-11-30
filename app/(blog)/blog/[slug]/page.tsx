@@ -184,6 +184,9 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   // SEO 자동 최적화 적용
   const optimized = optimizeBlogPostMeta(post);
 
+  // 중복 콘텐츠 방지: draft/review 상태는 noindex
+  const shouldIndex = post.published && post.index !== false;
+  
   return {
     title: optimized.metaTitle,
     description: optimized.metaDescription,
@@ -191,12 +194,26 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     alternates: {
       canonical: post.canonicalUrl || `${siteConfig.url}/blog/${slug}`,
     },
+    robots: {
+      index: shouldIndex,
+      follow: true,
+      googleBot: {
+        index: shouldIndex,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: optimized.metaTitle,
       description: optimized.metaDescription,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.date,
       url: `${siteConfig.url}/blog/${slug}`,
+      siteName: siteConfig.name,
+      locale: 'ko_KR',
     },
     twitter: {
       card: 'summary_large_image',

@@ -2,6 +2,7 @@ name: Organic Writer
 
 on:
   schedule:
+    # 4시간마다 실행 (한국 시간 기준: 1시, 5시, 9시, 13시, 17시, 21시)
     - cron: '0 */4 * * *'
   workflow_dispatch:
 
@@ -41,5 +42,22 @@ jobs:
           git add -A
           git diff --staged --quiet || git commit -m "Auto-generated blog post [skip ci]"
           git push || echo "No changes to push"
+
+  # 매일 sitemap ping (GitHub Actions 크론)
+  sitemap-ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Sitemap
+        env:
+          SITE_URL: ${{ secrets.SITE_URL || 'https://your-domain.vercel.app' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -n "$CRON_SECRET" ]; then
+            curl -X GET "$SITE_URL/api/cron/daily" \
+              -H "Authorization: Bearer $CRON_SECRET" \
+              -H "User-Agent: GitHub-Actions"
+          else
+            echo "CRON_SECRET not set, skipping sitemap ping"
+          fi
 
 

@@ -53,6 +53,11 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
+          // 중복 콘텐츠 방지: Vary 헤더 추가
+          {
+            key: 'Vary',
+            value: 'Accept-Encoding, User-Agent',
+          },
           // 캐싱 헤더 추가
           {
             key: 'Cache-Control',

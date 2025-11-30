@@ -17,8 +17,8 @@ const getSiteUrl = (): string => {
 };
 
 export const siteConfig = {
-  name: 'Growth Engine Starter',
-  description: '고성능 한국어 웹사이트를 위한 자동 블로깅 시스템',
+  name: 'Biz-Wallet (사장님의 지갑)',
+  description: '프리랜서와 소상공인을 위한 세금 계산 및 정부지원금 매칭 웹 유틸리티',
   url: getSiteUrl(),
   ogImage: '/og-image.jpg',
   links: {
@@ -30,9 +30,9 @@ export const siteConfig = {
     email: 'contact@example.com',
   },
   seo: {
-    defaultTitle: 'Growth Engine Starter',
-    defaultDescription: '고성능 한국어 웹사이트를 위한 자동 블로깅 시스템',
-    defaultKeywords: '블로그, 유틸리티, 도구',
+    defaultTitle: 'Biz-Wallet (사장님의 지갑) - 프리랜서 세금 계산기',
+    defaultDescription: '프리랜서와 소상공인을 위한 세금 계산기 및 세금 방어력 테스트. 100% 클라이언트 사이드 연산으로 개인정보를 보호합니다.',
+    defaultKeywords: '프리랜서 세금, 종합소득세 계산기, 세금 계산, 환급금 계산, 소상공인 세금, 단순경비율',
   },
   blog: {
     postsPerPage: 12,

@@ -130,32 +130,36 @@ export async function generateMetadata({ params }: BlogPageProps) {
   const totalPages = getTotalPages(siteConfig.blog.postsPerPage);
   const baseUrl = `${siteConfig.url}/blog${currentPage > 1 ? `/page/${currentPage}` : ''}`;
   
+  // 키워드를 앞쪽에 배치한 최적화된 메타 정보
+  const optimizedTitle = currentPage > 1
+    ? `프리랜서 세금 블로그 | 페이지 ${currentPage} - ${siteConfig.name}`
+    : `프리랜서 세금 블로그 | 세금 계산 가이드 - ${siteConfig.name}`;
+  const optimizedDescription = currentPage > 1
+    ? `프리랜서 세금 블로그 ${currentPage}페이지. 세금 계산, 환급금 조회, 소상공인 세금 정보를 확인하세요.`
+    : `프리랜서 세금 블로그에서 세금 계산 가이드, 환급금 조회 방법, 소상공인 세금 정보를 확인하세요.`;
+  
   return {
-    title: currentPage > 1 
-      ? `블로그 - 페이지 ${currentPage} - ${siteConfig.name}`
-      : `블로그 - ${siteConfig.name}`,
-    description: siteConfig.seo.defaultDescription,
+    title: optimizedTitle,
+    description: optimizedDescription,
     keywords: siteConfig.seo.defaultKeywords,
     alternates: {
       canonical: baseUrl,
     },
     robots: {
-      index: true,
+      index: currentPage === 1, // 첫 페이지만 인덱싱 (중복 콘텐츠 방지)
       follow: true,
+      'noindex': currentPage > 1 ? true : false, // 2페이지 이상은 noindex
     },
     openGraph: {
-      title: currentPage > 1 
-        ? `블로그 - 페이지 ${currentPage} - ${siteConfig.name}`
-        : `블로그 - ${siteConfig.name}`,
-      description: siteConfig.seo.defaultDescription,
+      title: optimizedTitle,
+      description: optimizedDescription,
       url: baseUrl,
+      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: currentPage > 1 
-        ? `블로그 - 페이지 ${currentPage} - ${siteConfig.name}`
-        : `블로그 - ${siteConfig.name}`,
-      description: siteConfig.seo.defaultDescription,
+      title: optimizedTitle,
+      description: optimizedDescription,
     },
   };
 }

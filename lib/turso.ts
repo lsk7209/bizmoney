@@ -21,8 +21,11 @@ function getTursoClient() {
       tursoClient = createClient({
         url: tursoUrl,
         authToken: tursoAuthToken,
+        // Vercel Edge Runtime 최적화
+        syncUrl: process.env.TURSO_SYNC_URL || undefined,
       });
     } catch (error) {
+      // 프로덕션 환경에서는 에러 로그를 남기지 않음
       if (process.env.NODE_ENV === 'development') {
         console.error('Failed to create Turso client:', error);
       }
@@ -31,6 +34,26 @@ function getTursoClient() {
   }
 
   return tursoClient;
+}
+
+/**
+ * Turso 연결 상태 확인
+ */
+export async function checkTursoConnection(): Promise<boolean> {
+  const client = getTursoClient();
+  if (!client) {
+    return false;
+  }
+
+  try {
+    await client.execute('SELECT 1');
+    return true;
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Turso connection check failed:', error);
+    }
+    return false;
+  }
 }
 
 export async function getViews(slug: string): Promise<number> {

@@ -131,32 +131,36 @@ export async function generateMetadata({ params }: ToolsPageProps) {
   const currentPage = parseInt(page, 10);
   const baseUrl = `${siteConfig.url}/tools${currentPage > 1 ? `/page/${currentPage}` : ''}`;
   
+  // 키워드를 앞쪽에 배치한 최적화된 메타 정보
+  const optimizedTitle = currentPage > 1
+    ? `세금 계산 도구 | 페이지 ${currentPage} - ${siteConfig.name}`
+    : `세금 계산 도구 | 프리랜서 세금 계산기 모음 - ${siteConfig.name}`;
+  const optimizedDescription = currentPage > 1
+    ? `세금 계산 도구 ${currentPage}페이지. 프리랜서와 소상공인을 위한 유용한 세금 계산 도구를 확인하세요.`
+    : `세금 계산 도구 모음. 프리랜서 세금 계산기, 종합소득세 계산기, 세금 방어력 테스트 등 유용한 도구를 제공합니다.`;
+  
   return {
-    title: currentPage > 1
-      ? `도구 - 페이지 ${currentPage} - ${siteConfig.name}`
-      : `도구 - ${siteConfig.name}`,
-    description: '유용한 온라인 도구 모음',
+    title: optimizedTitle,
+    description: optimizedDescription,
     keywords: siteConfig.seo.defaultKeywords,
     alternates: {
       canonical: baseUrl,
     },
     robots: {
-      index: true,
+      index: currentPage === 1, // 첫 페이지만 인덱싱 (중복 콘텐츠 방지)
       follow: true,
+      'noindex': currentPage > 1 ? true : false, // 2페이지 이상은 noindex
     },
     openGraph: {
-      title: currentPage > 1
-        ? `도구 - 페이지 ${currentPage} - ${siteConfig.name}`
-        : `도구 - ${siteConfig.name}`,
-      description: '유용한 온라인 도구 모음',
+      title: optimizedTitle,
+      description: optimizedDescription,
       url: baseUrl,
+      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: currentPage > 1
-        ? `도구 - 페이지 ${currentPage} - ${siteConfig.name}`
-        : `도구 - ${siteConfig.name}`,
-      description: '유용한 온라인 도구 모음',
+      title: optimizedTitle,
+      description: optimizedDescription,
     },
   };
 }

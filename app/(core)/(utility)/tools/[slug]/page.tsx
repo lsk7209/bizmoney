@@ -76,6 +76,9 @@ export async function generateMetadata({ params }: ToolPageProps) {
   // SEO 자동 최적화 적용
   const optimized = optimizeToolMeta(tool);
 
+  // 중복 콘텐츠 방지: published 상태 확인
+  const shouldIndex = tool.published !== false;
+  
   return {
     title: optimized.metaTitle,
     description: optimized.metaDescription,
@@ -83,10 +86,24 @@ export async function generateMetadata({ params }: ToolPageProps) {
     alternates: {
       canonical: tool.canonicalUrl || `${siteConfig.url}/tools/${slug}`,
     },
+    robots: {
+      index: shouldIndex,
+      follow: true,
+      googleBot: {
+        index: shouldIndex,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: optimized.metaTitle,
       description: optimized.metaDescription,
       url: `${siteConfig.url}/tools/${slug}`,
+      type: 'website',
+      siteName: siteConfig.name,
+      locale: 'ko_KR',
     },
     twitter: {
       card: 'summary_large_image',

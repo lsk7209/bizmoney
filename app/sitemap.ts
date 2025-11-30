@@ -20,9 +20,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogPageUrls: MetadataRoute.Sitemap = [];
   const totalBlogPages = Math.ceil(posts.length / siteConfig.blog.postsPerPage);
-  for (let i = 1; i <= totalBlogPages; i++) {
+  // 첫 페이지만 sitemap에 포함 (중복 콘텐츠 방지)
+  if (totalBlogPages > 0) {
     blogPageUrls.push({
-      url: `${baseUrl}/blog/page/${i}`,
+      url: `${baseUrl}/blog/page/1`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
@@ -38,9 +39,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const toolPageUrls: MetadataRoute.Sitemap = [];
   const totalToolPages = Math.ceil(tools.length / siteConfig.tools.postsPerPage);
-  for (let i = 1; i <= totalToolPages; i++) {
+  // 첫 페이지만 sitemap에 포함 (중복 콘텐츠 방지)
+  if (totalToolPages > 0) {
     toolPageUrls.push({
-      url: `${baseUrl}/tools/page/${i}`,
+      url: `${baseUrl}/tools/page/1`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
@@ -54,6 +56,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1,
     },
+    {
+      url: `${baseUrl}/calculator`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+        {
+          url: `${baseUrl}/quiz`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        },
+        {
+          url: `${baseUrl}/vat-calculator`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        },
+        {
+          url: `${baseUrl}/year-end-tax`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        },
+        {
+          url: `${baseUrl}/withholding-tax`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        },
+        {
+          url: `${baseUrl}/government-support`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        },
+        {
+          url: `${baseUrl}/tax-checklist`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        },
     {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
@@ -84,13 +128,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-  ];
+        {
+          url: `${baseUrl}/terms`,
+          lastModified: new Date(),
+          changeFrequency: 'yearly',
+          priority: 0.3,
+        },
+        {
+          url: `${baseUrl}/sitemap-page`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.5,
+        },
+      ];
 
   return [...staticUrls, ...postUrls, ...blogPageUrls, ...toolUrls, ...toolPageUrls];
 }
