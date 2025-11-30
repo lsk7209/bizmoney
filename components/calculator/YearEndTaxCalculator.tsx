@@ -355,51 +355,153 @@ export function YearEndTaxCalculator() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">종합소득금액</div>
-                <div className="text-xl font-bold">{formatCurrency(result.totalIncome)}</div>
+            {/* 핵심 결과 - 눈에 띄게 */}
+            <div className={`p-8 rounded-2xl border-4 shadow-2xl text-center ${
+              result.refundAmount > 0
+                ? 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 dark:from-green-950/40 dark:via-emerald-950/40 dark:to-green-900/20 border-green-400 dark:border-green-600'
+                : 'bg-gradient-to-br from-red-50 via-orange-50 to-red-100 dark:from-red-950/40 dark:via-orange-950/40 dark:to-red-900/20 border-red-400 dark:border-red-600'
+            }`}>
+              <div className="mb-4">
+                <span className="text-5xl">{result.refundAmount > 0 ? '🎉' : '⚠️'}</span>
               </div>
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">과세표준</div>
-                <div className="text-xl font-bold">{formatCurrency(result.taxableBase)}</div>
-              </div>
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">산출세액</div>
-                <div className="text-xl font-bold">{formatCurrency(result.calculatedTax)}</div>
-              </div>
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">결정세액</div>
-                <div className="text-xl font-bold">{formatCurrency(result.finalTax)}</div>
-              </div>
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">원천징수세액</div>
-                <div className="text-xl font-bold">{formatCurrency(result.withholdingTax)}</div>
-              </div>
-              <div className={`p-6 rounded-xl border-2 shadow-lg md:col-span-2 ${
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground">
+                {result.refundAmount > 0 ? '환급받을 수 있는 금액은?' : '추가로 납부해야 할 금액은?'}
+              </h3>
+              <div className={`text-4xl md:text-5xl font-bold mb-2 ${
                 result.refundAmount > 0
-                  ? 'bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/40 dark:to-green-900/20 border-green-300 dark:border-green-700'
-                  : 'bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/40 dark:to-red-900/20 border-red-300 dark:border-red-700'
+                  ? 'text-green-600 dark:text-green-400'
+                  : 'text-red-600 dark:text-red-400'
               }`}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-2xl">{result.refundAmount > 0 ? '💰' : '⚠️'}</span>
-                  <div className={`text-sm font-semibold ${
-                    result.refundAmount > 0 ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'
-                  }`}>
-                    {result.refundAmount > 0 ? '환급금' : '추가납부액'}
-                  </div>
+                {formatCurrency(Math.abs(result.refundAmount))}
+              </div>
+              <p className="text-base text-foreground/70 mt-3">
+                {result.refundAmount > 0 
+                  ? '💡 원천징수세액이 결정세액보다 많아서 환급받을 수 있어요!' 
+                  : '💡 결정세액이 원천징수세액보다 많아서 추가 납부가 필요해요.'}
+              </p>
+            </div>
+
+            {/* 상세 내역 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📊</span>
+                  <div className="text-base font-semibold text-muted-foreground">종합소득금액</div>
                 </div>
-                <div className={`text-3xl md:text-4xl font-bold ${
-                  result.refundAmount > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
-                }`}>
-                  {formatCurrency(Math.abs(result.refundAmount))}
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.totalIncome)}</div>
+                <p className="text-xs text-foreground/60 mt-2">공제 적용 전 소득</p>
+              </div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📋</span>
+                  <div className="text-base font-semibold text-muted-foreground">과세표준</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.taxableBase)}</div>
+                <p className="text-xs text-foreground/60 mt-2">세율 적용 기준 금액</p>
+              </div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">💵</span>
+                  <div className="text-base font-semibold text-muted-foreground">산출세액</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.calculatedTax)}</div>
+                <p className="text-xs text-foreground/60 mt-2">누진세율 적용</p>
+              </div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🎯</span>
+                  <div className="text-base font-semibold text-muted-foreground">결정세액</div>
+                </div>
+                <div className="text-xl font-bold text-blue-600 dark:text-blue-400">{formatCurrency(result.finalTax)}</div>
+                <p className="text-xs text-foreground/60 mt-2">세액공제 적용 후</p>
+              </div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🏛️</span>
+                  <div className="text-base font-semibold text-muted-foreground">원천징수세액</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.withholdingTax)}</div>
+                <p className="text-xs text-foreground/60 mt-2">이미 납부한 세액</p>
+              </div>
+            </div>
+
+            {/* 절세 팁 섹션 */}
+            <div className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-xl border-2 border-purple-200 dark:border-purple-800">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <span className="text-2xl">💡</span>
+                <span>연말정산 환급금을 더 받는 방법</span>
+              </h3>
+              <div className="space-y-3">
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 신용카드, 체크카드, 현금영수증 사용액 늘리기
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    연간 최대 300만원까지 소득공제! 일상 지출도 세금 절감에 도움이 돼요.
+                  </p>
+                </div>
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 보험료, 의료비, 교육비, 기부금 증빙 챙기기
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    소득공제 항목은 증빙이 필수예요! 영수증을 잘 챙겨두세요.
+                  </p>
+                </div>
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 퇴직연금, 주택자금, 연금저축 활용하기
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    세액공제 혜택으로 세금을 직접 줄일 수 있어요. 노후 대비도 되고 일석이조!
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-900 rounded-lg">
-              <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                <strong>⚠️ 면책 조항:</strong> 본 계산 결과는 모의 계산이며 법적 효력이 없습니다. 정확한 연말정산은 홈택스에서 직접 계산하거나 세무 전문가의 도움을 받으시기 바랍니다.
+            {/* 공유 버튼 */}
+            <div className="p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl border-2 border-green-200 dark:border-green-800">
+              <p className="text-center font-semibold text-base mb-4 text-foreground">
+                🎉 친구들도 계산해보라고 공유해보세요!
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(
+                        `연말정산 계산기로 내 예상 ${result.refundAmount > 0 ? '환급금' : '추가납부액'}을 확인했어요! 💰\n\n${typeof window !== 'undefined' ? window.location.href : ''}`
+                      );
+                      alert('링크가 클립보드에 복사되었습니다!');
+                    } catch (err) {
+                      alert('복사에 실패했습니다.');
+                    }
+                  }}
+                  variant="outline"
+                  className="border-2 hover:bg-green-50 dark:hover:bg-green-950/50"
+                  size="lg"
+                >
+                  📋 링크 복사
+                </Button>
+                <Button
+                  onClick={() => {
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      `연말정산 계산기로 내 예상 ${result.refundAmount > 0 ? '환급금' : '추가납부액'}을 확인했어요! 💰\n\n${typeof window !== 'undefined' ? window.location.href : ''}`
+                    )}`;
+                    window.open(twitterUrl, '_blank');
+                  }}
+                  variant="outline"
+                  className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/50"
+                  size="lg"
+                >
+                  🐦 트위터 공유
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-8 p-6 bg-yellow-50 dark:bg-yellow-950/50 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl shadow-md">
+              <p className="text-base font-semibold text-yellow-900 dark:text-yellow-100 leading-relaxed">
+                <span className="text-xl mr-2">⚠️</span>
+                <strong>면책 조항:</strong> 본 계산 결과는 모의 계산이며 법적 효력이 없습니다. 정확한 연말정산은 홈택스에서 직접 계산하거나 세무 전문가의 도움을 받으시기 바랍니다.
               </p>
             </div>
           </CardContent>
