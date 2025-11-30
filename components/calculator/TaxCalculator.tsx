@@ -137,7 +137,7 @@ export function TaxCalculator() {
       {/* 페이지 제목 (H1) - 공감 메시지 강화 */}
       <header className="text-center mb-10">
         <div className="mb-4">
-          <span className="inline-block px-4 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-block px-5 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-base font-semibold mb-4">
             💰 무료 세금 계산기
           </span>
         </div>
@@ -150,8 +150,8 @@ export function TaxCalculator() {
           프리랜서와 소상공인을 위한 <strong>무료 계산기</strong>로<br />
           내가 받을 수 있는 <strong className="text-green-600 dark:text-green-400">환급금</strong>을 확인해보세요.
         </p>
-        <div className="mt-6 p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg max-w-xl mx-auto">
-          <p className="text-sm text-foreground/80">
+        <div className="mt-6 p-5 bg-green-50 dark:bg-green-950/30 border-2 border-green-300 dark:border-green-700 rounded-xl max-w-xl mx-auto shadow-sm">
+          <p className="text-base font-medium text-foreground/90">
             ✅ <strong>100% 무료</strong> · ✅ <strong>개인정보 보호</strong> · ✅ <strong>즉시 결과 확인</strong>
           </p>
         </div>
@@ -251,8 +251,8 @@ export function TaxCalculator() {
                 aria-required="true"
               />
             </div>
-            <p id="annualIncome-help" className="text-sm text-foreground/60 leading-relaxed">
-              💡 원 단위로 입력해주세요 (예: 5천만원 → <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">50000000</code>)
+            <p id="annualIncome-help" className="text-base text-foreground/70 leading-relaxed">
+              💡 원 단위로 입력해주세요 (예: 5천만원 → <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono">50000000</code>)
               {input.annualIncome > 0 && (
                 <span className="ml-2 text-blue-600 dark:text-blue-400 font-semibold">
                   ({new Intl.NumberFormat('ko-KR').format(input.annualIncome)}원)
@@ -260,13 +260,13 @@ export function TaxCalculator() {
               )}
             </p>
             {input.annualIncome <= 0 && hasCalculated && (
-              <p id="annualIncome-error" className="text-sm text-red-500" role="alert" aria-live="polite">
-                연간 총수입금액을 입력해주세요.
+              <p id="annualIncome-error" className="text-base font-medium text-red-600 dark:text-red-400" role="alert" aria-live="polite">
+                ⚠️ 연간 총수입금액을 입력해주세요.
               </p>
             )}
             {input.annualIncome > 10000000000 && hasCalculated && (
-              <p id="annualIncome-error-max" className="text-sm text-red-500" role="alert" aria-live="polite">
-                연간 총수입금액은 100억원을 초과할 수 없습니다.
+              <p id="annualIncome-error-max" className="text-base font-medium text-red-600 dark:text-red-400" role="alert" aria-live="polite">
+                ⚠️ 연간 총수입금액은 100억원을 초과할 수 없습니다.
               </p>
             )}
           </div>
@@ -290,7 +290,7 @@ export function TaxCalculator() {
               className="h-12 text-base"
               aria-describedby="dependents-help"
             />
-            <p id="dependents-help" className="text-sm text-muted-foreground">
+            <p id="dependents-help" className="text-base text-foreground/70">
               본인을 제외한 부양가족 수를 입력하세요 (최대 20명)
             </p>
           </div>
@@ -335,8 +335,8 @@ export function TaxCalculator() {
                 <CardTitle id="result-title" className="text-2xl md:text-3xl font-bold text-green-700 dark:text-green-400">
                   계산 결과
                 </CardTitle>
-                <CardDescription className="text-sm mt-1">
-                  면책 조항: 본 계산 결과는 모의 계산이며 법적 효력이 없습니다.
+                <CardDescription className="text-base mt-2 font-medium text-foreground/80">
+                  ⚠️ 면책 조항: 본 계산 결과는 모의 계산이며 법적 효력이 없습니다.
                 </CardDescription>
               </div>
             </div>
@@ -346,7 +346,7 @@ export function TaxCalculator() {
                   <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">📊</span>
-                      <div className="text-sm font-medium text-muted-foreground">소득금액</div>
+                      <div className="text-base font-semibold text-muted-foreground">소득금액</div>
                     </div>
                     <div className="text-xl font-bold text-foreground">
                       {formatRange(result.incomeAmountRange.min, result.incomeAmountRange.max)}
@@ -356,7 +356,7 @@ export function TaxCalculator() {
                   <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">📋</span>
-                      <div className="text-sm font-medium text-muted-foreground">과세표준</div>
+                      <div className="text-base font-semibold text-muted-foreground">과세표준</div>
                     </div>
                     <div className="text-xl font-bold text-foreground">{formatCurrency(result.taxableBase)}</div>
                   </div>
@@ -364,7 +364,7 @@ export function TaxCalculator() {
                   <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">💵</span>
-                      <div className="text-sm font-medium text-muted-foreground">예상 소득세</div>
+                      <div className="text-base font-semibold text-muted-foreground">예상 소득세</div>
                     </div>
                     <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
                       {formatRange(result.calculatedTaxRange.min, result.calculatedTaxRange.max)}
@@ -374,7 +374,7 @@ export function TaxCalculator() {
                   <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">🏛️</span>
-                      <div className="text-sm font-medium text-muted-foreground">지방소득세</div>
+                      <div className="text-base font-semibold text-muted-foreground">지방소득세</div>
                     </div>
                     <div className="text-xl font-bold text-foreground">
                       {formatRange(result.localTaxRange.min, result.localTaxRange.max)}
@@ -384,19 +384,20 @@ export function TaxCalculator() {
                   <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/40 dark:to-red-900/20 rounded-xl border-2 border-red-300 dark:border-red-700 shadow-lg md:col-span-2">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-2xl">⚠️</span>
-                      <div className="text-sm font-semibold text-red-700 dark:text-red-400">총 세액 (납부 예상액)</div>
+                      <div className="text-base font-bold text-red-700 dark:text-red-400">총 세액 (납부 예상액)</div>
                     </div>
                     <div className="text-3xl md:text-4xl font-bold text-red-600 dark:text-red-400">
                       {formatRange(result.totalTaxRange.min, result.totalTaxRange.max)}
                     </div>
-                    <p className="text-xs text-red-600/80 dark:text-red-400/80 mt-2">
+                    <p className="text-sm text-red-600/90 dark:text-red-400/90 mt-3 font-medium">
                       * 위 금액은 납부해야 할 예상 세액입니다.
                     </p>
                   </div>
                 </div>
 
-            <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-900 rounded-lg">
-              <p className="text-sm text-yellow-800 dark:text-yellow-200">
+            <div className="mt-8 p-6 bg-yellow-50 dark:bg-yellow-950/50 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl shadow-md">
+              <p className="text-base font-semibold text-yellow-900 dark:text-yellow-100 leading-relaxed">
+                <span className="text-xl mr-2">⚠️</span>
                 <strong>면책 조항:</strong> 본 계산 결과는 모의 계산이며 법적 효력이 없습니다. 정확한 세액은 홈택스 또는 세무 전문가를 통해 확인하세요.
               </p>
             </div>

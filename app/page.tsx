@@ -49,7 +49,7 @@ export default function HomePage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="benefit-highlight">
-                  <p className="text-sm font-medium text-foreground">
+                  <p className="text-base font-medium text-foreground">
                     💡 <strong>무료</strong>로 세금 지식 레벨을 확인하고, <strong>맞춤형 계산기</strong>를 추천받으세요.
                   </p>
                 </div>
@@ -77,7 +77,7 @@ export default function HomePage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="benefit-highlight">
-                  <p className="text-sm font-medium text-foreground">
+                  <p className="text-base font-medium text-foreground">
                     ✅ <strong>100% 무료</strong> · <strong>개인정보 보호</strong> · <strong>즉시 결과 확인</strong>
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
                     <p className="text-sm text-foreground/70 mb-3 line-clamp-2 leading-relaxed">
                       {post.description}
                     </p>
-                    <time className="text-xs text-foreground/50 font-medium">
+                    <time className="text-sm text-foreground/60 font-medium">
                       {formatDate(post.date)}
                     </time>
                   </Link>
@@ -209,7 +209,7 @@ export default function HomePage() {
                           {tool.tags.slice(0, 2).map((tag) => (
                             <span
                               key={tag}
-                              className="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md font-medium"
+                              className="text-sm px-2.5 py-1.5 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md font-medium"
                               role="listitem"
                             >
                               {tag}

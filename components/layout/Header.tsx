@@ -26,28 +26,28 @@ export function Header() {
         >
           <Link
             href="/calculator"
-            className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 bg-blue-50 dark:bg-blue-950 px-3 py-1.5 rounded-lg transition-all hover:bg-blue-100 dark:hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hidden sm:block"
+            className="text-base font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 bg-blue-50 dark:bg-blue-950 px-4 py-2 rounded-lg transition-all hover:bg-blue-100 dark:hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hidden sm:block"
             aria-label="세금 계산기 페이지로 이동"
           >
             💰 계산기
           </Link>
           <Link
             href="/quiz"
-            className="text-sm font-semibold text-foreground/80 hover:text-foreground px-3 py-1.5 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="text-base font-semibold text-foreground/80 hover:text-foreground px-4 py-2 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             aria-label="세금 방어력 테스트 페이지로 이동"
           >
             📊 테스트
           </Link>
           <Link
             href="/blog"
-            className="text-sm font-medium text-foreground/70 hover:text-foreground px-3 py-1.5 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hidden sm:block"
+            className="text-base font-medium text-foreground/70 hover:text-foreground px-4 py-2 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hidden sm:block"
             aria-label="블로그 페이지로 이동"
           >
             블로그
           </Link>
           <Link
             href="/tools"
-            className="text-sm font-medium text-foreground/70 hover:text-foreground px-3 py-1.5 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hidden sm:block"
+            className="text-base font-medium text-foreground/70 hover:text-foreground px-4 py-2 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hidden sm:block"
             aria-label="도구 페이지로 이동"
           >
             도구

@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
             <h3 className="font-bold text-lg mb-4 text-foreground">법적 정보</h3>
-            <ul className="space-y-3 text-sm text-foreground/70" role="list">
+            <ul className="space-y-3 text-base text-foreground/70" role="list">
               <li>
                 <Link
                   href="/privacy"
@@ -61,7 +61,7 @@ export function Footer() {
           </div>
           <div>
             <h3 className="font-bold text-lg mb-4 text-foreground">주요 기능</h3>
-            <ul className="space-y-3 text-sm text-foreground/70" role="list">
+            <ul className="space-y-3 text-base text-foreground/70" role="list">
               <li>
                 <Link
                   href="/calculator"
@@ -84,7 +84,7 @@ export function Footer() {
           </div>
           <div>
             <h3 className="font-bold text-lg mb-4 text-foreground">콘텐츠</h3>
-            <ul className="space-y-3 text-sm text-foreground/70" role="list">
+            <ul className="space-y-3 text-base text-foreground/70" role="list">
               <li>
                 <Link
                   href="/blog"

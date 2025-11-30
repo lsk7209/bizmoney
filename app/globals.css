@@ -83,15 +83,36 @@ body {
   background: var(--background);
   font-family: var(--font-inter), system-ui, sans-serif;
   /* 프리랜서/소상공인을 위한 가독성 향상 */
-  line-height: 1.7;
+  font-size: 16px; /* 기본 폰트 크기 16px (모바일 최소 권장 크기) */
+  line-height: 1.75; /* 가독성을 위한 넉넉한 줄 간격 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em; /* 한글 가독성 향상 */
+}
+
+/* 프리랜서/소상공인을 위한 최소 글자 크기 보장 */
+p, li, span, div {
+  font-size: 16px; /* 최소 16px 보장 */
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 17px; /* 데스크톱에서는 17px */
+  }
 }
 
 /* 프리랜서/소상공인을 위한 공감 메시지 스타일 */
 .empathy-text {
   color: hsl(217, 91%, 50%);
   font-weight: 600;
+  font-size: 1.25rem; /* 20px - 더 눈에 띄게 */
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .empathy-text {
+    font-size: 1.375rem; /* 22px - 데스크톱 */
+  }
 }
 
 .benefit-highlight {
