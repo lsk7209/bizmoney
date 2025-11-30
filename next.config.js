@@ -30,8 +30,6 @@ const nextConfig = {
       '@google/generative-ai',
     ],
   },
-  // Pages Router 번들링 최적화
-  bundlePagesRouterDependencies: true,
   async headers() {
     return [
       {

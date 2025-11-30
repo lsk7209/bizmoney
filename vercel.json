@@ -12,15 +12,8 @@
       "maxDuration": 10
     },
     "app/api/admin/**/*.ts": {
-      "maxDuration": 30,
-      "memory": 1024
+      "maxDuration": 30
     }
-  },
-  "crons": [
-    {
-      "path": "/api/cron/daily",
-      "schedule": "0 0 * * *"
-    }
-  ]
+  }
 }
 
