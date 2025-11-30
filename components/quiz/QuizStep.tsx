@@ -139,18 +139,58 @@ export function QuizStep() {
           )}
 
           {hasAnswered && (
-            <Button
-              onClick={handleNext}
-              className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all"
-              size="lg"
-              aria-label={
-                currentQuestionIndex < questions.length - 1 
-                  ? '다음 문제로 이동' 
-                  : '테스트 결과 보기'
-              }
-            >
-              {currentQuestionIndex < questions.length - 1 ? '다음 문제 →' : '결과 보기 →'}
-            </Button>
+            <div className="space-y-3">
+              {/* 정답/오답 즉시 피드백 */}
+              {(() => {
+                const userAnswer = answers.find((a) => a.questionId === currentQuestion.id);
+                const isCorrect = userAnswer && userAnswer.score > 0;
+                const question = currentQuestion;
+                
+                return (
+                  <div className={`p-4 rounded-lg border-2 ${
+                    isCorrect
+                      ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800'
+                      : 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800'
+                  }`}>
+                    <div className="flex items-start gap-3">
+                      <span className={`text-2xl ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                        {isCorrect ? '✅' : '❌'}
+                      </span>
+                      <div className="flex-1">
+                        <p className={`font-bold text-base mb-2 ${isCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                          {isCorrect ? '정답이에요! 🎉' : '아쉽네요! 😅'}
+                        </p>
+                        {question.explanation && (
+                          <p className="text-sm text-foreground/80 leading-relaxed mb-2">
+                            {question.explanation}
+                          </p>
+                        )}
+                        {question.tip && (
+                          <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-950/30 rounded border border-blue-200 dark:border-blue-800">
+                            <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                              {question.tip}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+              
+              <Button
+                onClick={handleNext}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all"
+                size="lg"
+                aria-label={
+                  currentQuestionIndex < questions.length - 1 
+                    ? '다음 문제로 이동' 
+                    : '테스트 결과 보기'
+                }
+              >
+                {currentQuestionIndex < questions.length - 1 ? '다음 문제 →' : '결과 보기 →'}
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>

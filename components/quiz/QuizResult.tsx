@@ -139,7 +139,7 @@ export function QuizResult() {
             <div className="p-6 bg-blue-50 dark:bg-blue-950/30 rounded-xl border-2 border-blue-200 dark:border-blue-800">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <span className="text-2xl">💡</span>
-                <span>나에게 맞는 세금 절감 팁</span>
+                <span>나에게 맞는 세금 절감 팁 (2025년 최신!)</span>
               </h3>
               <ul className="space-y-3">
                 {result.tips.map((tip, index) => (
@@ -149,6 +149,14 @@ export function QuizResult() {
                   </li>
                 ))}
               </ul>
+              <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg border-2 border-green-300 dark:border-green-700">
+                <p className="text-sm font-bold text-green-700 dark:text-green-300 mb-2">
+                  🎁 2025년 신규! 국세청 "원클릭" 무료 환급 서비스
+                </p>
+                <p className="text-xs text-foreground/80 leading-relaxed">
+                  홈택스에서 "원클릭 환급 신고"로 최대 5년치 환급금을 <strong className="text-green-600 dark:text-green-400">완전 무료</strong>로 확인할 수 있어요! 삼쩜삼 같은 민간 서비스는 수수료가 있지만, 원클릭은 수수료 0원!
+                </p>
+              </div>
             </div>
           )}
 

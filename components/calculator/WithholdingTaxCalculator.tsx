@@ -216,44 +216,129 @@ export function WithholdingTaxCalculator() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
+            {/* 핵심 결과 - 눈에 띄게 */}
+            <div className="p-8 bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 dark:from-green-950/40 dark:via-emerald-950/40 dark:to-green-900/20 rounded-2xl border-4 border-green-400 dark:border-green-600 shadow-2xl text-center">
+              <div className="mb-4">
+                <span className="text-5xl">💰</span>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground">
+                실제로 받을 수 있는 금액은?
+              </h3>
+              <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400 mb-2">
+                {formatCurrency(result.netAmount)}
+              </div>
+              <p className="text-base text-foreground/70 mt-3">
+                💡 계약금액에서 원천징수세액(3.3%)을 제외한 실제 받을 금액이에요!
+              </p>
+            </div>
+
+            {/* 상세 내역 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">계약금액</div>
-                <div className="text-xl font-bold">{formatCurrency(result.contractAmount)}</div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📋</span>
+                  <div className="text-base font-semibold text-muted-foreground">계약금액</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.contractAmount)}</div>
+                <p className="text-xs text-foreground/60 mt-2">의뢰인과 계약한 총 금액</p>
               </div>
               {result.vatAmount > 0 && (
-                <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                  <div className="text-sm font-medium text-muted-foreground mb-2">부가세액</div>
-                  <div className="text-xl font-bold">{formatCurrency(result.vatAmount)}</div>
+                <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-lg">💵</span>
+                    <div className="text-base font-semibold text-muted-foreground">부가세액</div>
+                  </div>
+                  <div className="text-xl font-bold text-foreground">{formatCurrency(result.vatAmount)}</div>
+                  <p className="text-xs text-foreground/60 mt-2">공급가액의 10%</p>
                 </div>
               )}
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-muted-foreground mb-2">공급가액</div>
-                <div className="text-xl font-bold">{formatCurrency(result.supplyAmount)}</div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📊</span>
+                  <div className="text-base font-semibold text-muted-foreground">공급가액</div>
+                </div>
+                <div className="text-xl font-bold text-foreground">{formatCurrency(result.supplyAmount)}</div>
+                <p className="text-xs text-foreground/60 mt-2">부가세 제외 금액</p>
               </div>
-              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-blue-200 dark:border-blue-800">
-                <div className="text-sm font-medium text-muted-foreground mb-2">원천징수세액</div>
+              <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border-2 border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🏛️</span>
+                  <div className="text-base font-semibold text-muted-foreground">원천징수세액</div>
+                </div>
                 <div className="text-xl font-bold text-blue-600 dark:text-blue-400">{formatCurrency(result.withholdingTax)}</div>
-              </div>
-              <div className={`p-6 rounded-xl border-2 shadow-lg md:col-span-2 ${
-                'bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/40 dark:to-green-900/20 border-green-300 dark:border-green-700'
-              }`}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-2xl">💰</span>
-                  <div className="text-sm font-semibold text-green-700 dark:text-green-400">실수령액</div>
-                </div>
-                <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400">
-                  {formatCurrency(result.netAmount)}
-                </div>
-                <p className="text-xs text-green-600/80 dark:text-green-400/80 mt-2">
-                  * 계약금액에서 원천징수세액을 제외한 실제 받을 금액입니다.
-                </p>
+                <p className="text-xs text-foreground/60 mt-2">공급가액의 3.3% (미리 떼는 세금)</p>
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-900 rounded-lg">
-              <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                <strong>⚠️ 면책 조항:</strong> 본 계산 결과는 모의 계산이며 법적 효력이 없습니다. 정확한 원천징수세는 세무 전문가의 도움을 받으시기 바랍니다.
+            {/* 중요 안내 - 바이럴 요소 */}
+            <div className="p-6 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-950/30 dark:to-yellow-950/30 rounded-xl border-2 border-orange-200 dark:border-orange-800">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <span className="text-2xl">💡</span>
+                <span>원천징수세는 나중에 정산돼요!</span>
+              </h3>
+              <div className="space-y-3">
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-orange-200 dark:border-orange-800">
+                  <p className="text-base font-semibold text-foreground mb-2">
+                    ✅ 5월 종합소득세 신고 시 정산
+                  </p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    원천징수된 3.3%는 다음 해 5월 종합소득세 신고 시 기납부세액으로 처리돼요. 실제 세액이 적으면 환급받을 수 있어요!
+                  </p>
+                </div>
+                <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-lg border-2 border-blue-300 dark:border-blue-700">
+                  <p className="text-base font-bold text-blue-700 dark:text-blue-300 mb-2">
+                    🎁 2025년 신규! 국세청 "원클릭" 무료 환급
+                  </p>
+                  <p className="text-sm text-foreground/80 leading-relaxed">
+                    홈택스에서 "원클릭 환급 신고"로 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">완전 무료</strong>로 확인할 수 있어요! 원천징수세 정산도 자동으로 해줘요.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 공유 버튼 */}
+            <div className="p-5 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl border-2 border-green-200 dark:border-green-800">
+              <p className="text-center font-semibold text-base mb-4 text-foreground">
+                🎉 친구들도 계산해보라고 공유해보세요!
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(
+                        `원천징수세 계산기로 내 실수령액을 확인했어요! 💰\n\n${typeof window !== 'undefined' ? window.location.href : ''}`
+                      );
+                      alert('링크가 클립보드에 복사되었습니다!');
+                    } catch (err) {
+                      alert('복사에 실패했습니다.');
+                    }
+                  }}
+                  variant="outline"
+                  className="border-2 hover:bg-green-50 dark:hover:bg-green-950/50"
+                  size="lg"
+                >
+                  📋 링크 복사
+                </Button>
+                <Button
+                  onClick={() => {
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      `원천징수세 계산기로 내 실수령액을 확인했어요! 💰\n\n${typeof window !== 'undefined' ? window.location.href : ''}`
+                    )}`;
+                    window.open(twitterUrl, '_blank');
+                  }}
+                  variant="outline"
+                  className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/50"
+                  size="lg"
+                >
+                  🐦 트위터 공유
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-8 p-6 bg-yellow-50 dark:bg-yellow-950/50 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl shadow-md">
+              <p className="text-base font-semibold text-yellow-900 dark:text-yellow-100 leading-relaxed">
+                <span className="text-xl mr-2">⚠️</span>
+                <strong>면책 조항:</strong> 본 계산 결과는 모의 계산이며 법적 효력이 없습니다. 정확한 원천징수세는 세무 전문가의 도움을 받으시기 바랍니다.
               </p>
             </div>
           </CardContent>

@@ -400,10 +400,10 @@ export function TaxCalculator() {
               <div className="space-y-3">
                 <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
                   <p className="text-base font-semibold text-foreground mb-2">
-                    ✅ 노란우산공제 가입하기
+                    ✅ 노란우산공제 가입하기 (2025년 최신!)
                   </p>
                   <p className="text-sm text-foreground/70 leading-relaxed">
-                    연간 최대 500만원까지 소득공제! 프리랜서를 위한 퇴직금 제도예요.
+                    연간 최대 500만원까지 소득공제! 프리랜서를 위한 퇴직금 제도예요. 2025년부터 더 많은 혜택이 있어요!
                   </p>
                 </div>
                 <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
@@ -411,7 +411,7 @@ export function TaxCalculator() {
                     ✅ 개인형 퇴직연금(IRP) 활용하기
                   </p>
                   <p className="text-sm text-foreground/70 leading-relaxed">
-                    세액공제 혜택으로 세금을 더 줄일 수 있어요. 노후 대비도 되고 일석이조!
+                    세액공제 혜택으로 세금을 더 줄일 수 있어요. 노후 대비도 되고 일석이조! 2025년 세액공제 한도가 늘어났어요.
                   </p>
                 </div>
                 <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-purple-200 dark:border-purple-800">
@@ -419,7 +419,18 @@ export function TaxCalculator() {
                     ✅ 실제 경비가 많다면 간편장부 신고
                   </p>
                   <p className="text-sm text-foreground/70 leading-relaxed">
-                    단순경비율보다 실제 경비가 많다면 간편장부로 신고하면 더 유리할 수 있어요!
+                    단순경비율보다 실제 경비가 많다면 간편장부로 신고하면 더 유리할 수 있어요! 2025년 기준금액이 7,500만원으로 상향됐어요.
+                  </p>
+                </div>
+                <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-lg border-2 border-blue-300 dark:border-blue-700">
+                  <p className="text-base font-bold text-blue-700 dark:text-blue-300 mb-2">
+                    🎁 2025년 신규! 국세청 "원클릭" 무료 환급 서비스
+                  </p>
+                  <p className="text-sm text-foreground/80 leading-relaxed mb-2">
+                    홈택스에서 "원클릭 환급 신고" 메뉴를 찾아보세요! 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">완전 무료</strong>로 확인하고 신청할 수 있어요. 삼쩜삼 같은 민간 서비스는 수수료가 있지만, 원클릭은 수수료 0원!
+                  </p>
+                  <p className="text-xs text-foreground/60">
+                    * 원클릭은 국세청이 자동으로 계산해주지만, 미리 계산기로 예상 세액을 확인하면 더 확실해요!
                   </p>
                 </div>
               </div>
@@ -429,21 +440,29 @@ export function TaxCalculator() {
             <div className="p-6 bg-blue-50 dark:bg-blue-950/30 rounded-xl border-2 border-blue-200 dark:border-blue-800">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <span className="text-2xl">📊</span>
-                <span>실제 사례 비교</span>
+                <span>실제 사례 비교 (2025년 기준)</span>
               </h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg">
+              <div className="space-y-3 text-sm mb-4">
+                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg border border-blue-200 dark:border-blue-800">
                   <span className="font-medium">연봉 3,000만원 프리랜서</span>
                   <span className="font-bold text-blue-600 dark:text-blue-400">약 50~80만원</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg">
+                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg border border-blue-200 dark:border-blue-800">
                   <span className="font-medium">연봉 5,000만원 프리랜서</span>
                   <span className="font-bold text-blue-600 dark:text-blue-400">약 150~200만원</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg">
+                <div className="flex justify-between items-center p-3 bg-white dark:bg-gray-900 rounded-lg border border-blue-200 dark:border-blue-800">
                   <span className="font-medium">연봉 8,000만원 프리랜서</span>
                   <span className="font-bold text-blue-600 dark:text-blue-400">약 400~500만원</span>
                 </div>
+              </div>
+              <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg border-2 border-green-300 dark:border-green-700">
+                <p className="text-sm font-semibold text-green-700 dark:text-green-300 mb-2">
+                  💰 환급 후기 스타일
+                </p>
+                <p className="text-xs text-foreground/70 leading-relaxed">
+                  "원천징수된 3.3%와 비교하면 실제로는 환급받을 수도 있어요! 실제로 많은 분들이 예상보다 더 많이 받는다고 하네요. 홈택스 원클릭으로 확인해보세요!"
+                </p>
               </div>
               <p className="text-xs text-foreground/60 mt-3">
                 * 실제 세액은 공제 항목, 부양가족 수 등에 따라 달라질 수 있어요.
