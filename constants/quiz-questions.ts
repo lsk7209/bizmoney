@@ -9,6 +9,7 @@ export interface QuizQuestion {
   score: number; // 정답 시 점수
   explanation?: string; // 정답 설명 (결과 페이지에서 표시)
   tip?: string; // 실용적인 팁
+  description?: string; // 문제에 대한 부연 설명
 }
 
 export interface QuizAnswer {
