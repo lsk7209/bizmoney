@@ -22,6 +22,9 @@ import {
   TableHeader,
   TableCell,
 } from '@/components/growth-engine/ui-blocks/Table';
+import { BlogHero } from '@/components/blog/BlogHero';
+import { TableOfContents } from '@/components/blog/TableOfContents';
+import { ShareButtons } from '@/components/blog/ShareButtons';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -60,49 +63,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   // SEO 자동 최적화 적용
   const optimized = optimizeBlogPostMeta(post);
+  const postUrl = `${siteConfig.url}/blog/${slug}`;
 
   return (
     <>
       <StructuredData post={post} />
-      <article className="container mx-auto px-4 py-12 max-w-4xl">
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">{optimized.h1}</h1>
-          <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
-            <time
-              dateTime={post.date}
-              aria-label={`게시일: ${formatDate(post.date)}`}
-            >
-              {formatDate(post.date)}
-            </time>
-            <ViewCounter slug={post.slug} />
-          </div>
-          {post.description && (
-            <p className="text-xl text-foreground/80">{post.description}</p>
-          )}
-        </header>
 
-        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-p:text-foreground/90 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
-          <MDXRemote
-            source={post.content}
-            components={mdxComponents}
-            options={{
-              mdxOptions: {
-                rehypePlugins: [],
-              },
-      
-      < BlogHero 
+      <BlogHero
         title={post.title}
-            date={post.date}
-            category={post.tags?.[0]}
-            slug={slug}
-            url={postUrl}
-          />
+        date={post.date}
+        category={post.tags?.[0]}
+        slug={slug}
+        url={postUrl}
+      />
 
-          <div className="container mx-auto px-4 py-12">
-            <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
-              {/* Main Content */}
-              <main className="flex-1 min-w-0">
-                <article className="prose prose-lg dark:prose-invert max-w-none 
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
+          {/* Main Content */}
+          <main className="flex-1 min-w-0">
+            <article className="prose prose-lg dark:prose-invert max-w-none 
               prose-headings:font-bold prose-headings:tracking-tight 
               prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-2 prose-h2:border-b
               prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
@@ -114,82 +93,92 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               prose-img:rounded-xl prose-img:shadow-lg
               prose-li:marker:text-blue-500
             ">
-                  <MDXRemote source={post.content} components={mdxComponents} />
-                </article>
+              <MDXRemote source={post.content} components={mdxComponents} />
+            </article>
 
-                {/* Tags Footer */}
-                {post.tags && post.tags.length > 0 && (
-                  <footer className="mt-16 pt-8 border-t">
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-sm font-medium transition-colors cursor-default"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  </footer>
-                )}
-              </main>
+            {/* Tags Footer */}
+            {post.tags && post.tags.length > 0 && (
+              <footer className="mt-16 pt-8 border-t">
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-sm font-medium transition-colors cursor-default"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </footer>
+            )}
 
-              {/* Sidebar (TOC) */}
-              <aside className="hidden lg:block w-64 flex-shrink-0">
-                <TableOfContents />
-              </aside>
+            {/* Share Buttons (Mobile) */}
+            <div className="mt-8 lg:hidden">
+              <ShareButtons title={post.title} url={postUrl} />
             </div>
-          </div>
-        </>
-        );
+          </main>
+
+          {/* Sidebar (TOC) */}
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-24 space-y-8">
+              <TableOfContents />
+              <div className="pt-8 border-t">
+                <p className="text-sm font-semibold mb-4 text-foreground/70">이 글 공유하기</p>
+                <ShareButtons title={post.title} url={postUrl} />
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </>
+  );
 }
 
-        export async function generateMetadata({params}: BlogPostPageProps) {
-  const {slug} = await params;
-        const post = await getPostBySlugAsync(slug);
+export async function generateMetadata({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = await getPostBySlugAsync(slug);
 
-        if (!post) {
+  if (!post) {
     return {
-          title: '포스트를 찾을 수 없습니다',
+      title: '포스트를 찾을 수 없습니다',
     };
   }
 
-        const optimized = optimizeBlogPostMeta(post);
-        const shouldIndex = post.published && post.index !== false;
+  const optimized = optimizeBlogPostMeta(post);
+  const shouldIndex = post.published && post.index !== false;
 
-        return {
-          title: optimized.metaTitle,
-        description: optimized.metaDescription,
-        keywords: optimized.keywords.join(', '),
-        alternates: {
-          canonical: post.canonicalUrl || `${siteConfig.url}/blog/${slug}`,
+  return {
+    title: optimized.metaTitle,
+    description: optimized.metaDescription,
+    keywords: optimized.keywords.join(', '),
+    alternates: {
+      canonical: post.canonicalUrl || `${siteConfig.url}/blog/${slug}`,
     },
-        robots: {
-          index: shouldIndex,
-        follow: true,
-        googleBot: {
-          index: shouldIndex,
+    robots: {
+      index: shouldIndex,
+      follow: true,
+      googleBot: {
+        index: shouldIndex,
         follow: true,
         'max-video-preview': -1,
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
     },
-        openGraph: {
-          title: optimized.metaTitle,
-        description: optimized.metaDescription,
-        type: 'article',
-        publishedTime: post.date,
-        modifiedTime: post.date,
-        url: `${siteConfig.url}/blog/${slug}`,
-        siteName: siteConfig.name,
-        locale: 'ko_KR',
+    openGraph: {
+      title: optimized.metaTitle,
+      description: optimized.metaDescription,
+      type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      url: `${siteConfig.url}/blog/${slug}`,
+      siteName: siteConfig.name,
+      locale: 'ko_KR',
     },
-        twitter: {
-          card: 'summary_large_image',
-        title: optimized.metaTitle,
-        description: optimized.metaDescription,
+    twitter: {
+      card: 'summary_large_image',
+      title: optimized.metaTitle,
+      description: optimized.metaDescription,
     },
   };
 }
-
