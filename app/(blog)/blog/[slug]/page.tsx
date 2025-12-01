@@ -66,159 +66,129 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <StructuredData post={post} />
       <article className="container mx-auto px-4 py-12 max-w-4xl">
         <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">{optimized.h1}</h1>
-        <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
-          <time
-            dateTime={post.date}
-            aria-label={`게시일: ${formatDate(post.date)}`}
-          >
-            {formatDate(post.date)}
-          </time>
-          <ViewCounter slug={post.slug} />
-        </div>
-        {post.description && (
-          <p className="text-xl text-foreground/80">{post.description}</p>
-        )}
-      </header>
-
-      <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-p:text-foreground/90 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
-        <MDXRemote
-          source={post.content}
-          components={mdxComponents}
-          options={{
-            mdxOptions: {
-              rehypePlugins: [],
-            },
-          }}
-        />
-      </div>
-
-      {/* CTA (Call To Action) */}
-      {post.cta && (
-        <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <div className="text-center">
-            <p className="text-lg font-semibold mb-4 text-foreground">{post.cta.text}</p>
-            <Link
-              href={post.cta.url}
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          <h1 className="text-4xl font-bold mb-4">{optimized.h1}</h1>
+          <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
+            <time
+              dateTime={post.date}
+              aria-label={`게시일: ${formatDate(post.date)}`}
             >
-              바로가기 →
-            </Link>
+              {formatDate(post.date)}
+            </time>
+            <ViewCounter slug={post.slug} />
           </div>
-        </div>
-      )}
+          {post.description && (
+            <p className="text-xl text-foreground/80">{post.description}</p>
+          )}
+        </header>
 
-      {/* Internal Links (Inlinks) */}
-      {post.internalLinks && post.internalLinks.length > 0 && (
-        <section className="mt-12 pt-8 border-t">
-          <h2 className="text-2xl font-semibold mb-4">관련 글</h2>
-          <ul className="space-y-2">
-            {post.internalLinks.map((linkSlug, index) => {
-              const linkedPost = getAllPosts().find((p) => p.slug === linkSlug);
-              if (!linkedPost) return null;
-              return (
-                <li key={index}>
-                  <Link
-                    href={`/blog/${linkSlug}`}
-                    className="text-blue-600 dark:text-blue-400 hover:underline"
-                  >
-                    {linkedPost.title}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      )}
+        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-p:text-foreground/90 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{
+              mdxOptions: {
+                rehypePlugins: [],
+              },
+      
+      < BlogHero 
+        title={post.title}
+            date={post.date}
+            category={post.tags?.[0]}
+            slug={slug}
+            url={postUrl}
+          />
 
-      {/* External Links (Outlinks) */}
-      {post.externalLinks && post.externalLinks.length > 0 && (
-        <section className="mt-8 pt-8 border-t">
-          <h2 className="text-2xl font-semibold mb-4">참고 자료</h2>
-          <ul className="space-y-2">
-            {post.externalLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  {link.description || link.url}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+          <div className="container mx-auto px-4 py-12">
+            <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
+              {/* Main Content */}
+              <main className="flex-1 min-w-0">
+                <article className="prose prose-lg dark:prose-invert max-w-none 
+              prose-headings:font-bold prose-headings:tracking-tight 
+              prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-2 prose-h2:border-b
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
+              prose-p:leading-relaxed prose-p:text-foreground/90
+              prose-strong:text-foreground prose-strong:font-bold
+              prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+              prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 dark:prose-blockquote:bg-blue-950/30 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r
+              prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:text-pink-600 dark:prose-code:text-pink-400
+              prose-img:rounded-xl prose-img:shadow-lg
+              prose-li:marker:text-blue-500
+            ">
+                  <MDXRemote source={post.content} components={mdxComponents} />
+                </article>
 
-      {post.tags && post.tags.length > 0 && (
-        <footer className="mt-12 pt-8 border-t">
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-sm"
-              >
-                #{tag}
-              </span>
-            ))}
+                {/* Tags Footer */}
+                {post.tags && post.tags.length > 0 && (
+                  <footer className="mt-16 pt-8 border-t">
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-sm font-medium transition-colors cursor-default"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  </footer>
+                )}
+              </main>
+
+              {/* Sidebar (TOC) */}
+              <aside className="hidden lg:block w-64 flex-shrink-0">
+                <TableOfContents />
+              </aside>
+            </div>
           </div>
-        </footer>
-      )}
-    </article>
-    </>
-  );
+        </>
+        );
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const post = await getPostBySlugAsync(slug);
+        export async function generateMetadata({params}: BlogPostPageProps) {
+  const {slug} = await params;
+        const post = await getPostBySlugAsync(slug);
 
-  if (!post) {
+        if (!post) {
     return {
-      title: '포스트를 찾을 수 없습니다',
+          title: '포스트를 찾을 수 없습니다',
     };
   }
 
-  // SEO 자동 최적화 적용
-  const optimized = optimizeBlogPostMeta(post);
+        const optimized = optimizeBlogPostMeta(post);
+        const shouldIndex = post.published && post.index !== false;
 
-  // 중복 콘텐츠 방지: draft/review 상태는 noindex
-  const shouldIndex = post.published && post.index !== false;
-  
-  return {
-    title: optimized.metaTitle,
-    description: optimized.metaDescription,
-    keywords: optimized.keywords.join(', '),
-    alternates: {
-      canonical: post.canonicalUrl || `${siteConfig.url}/blog/${slug}`,
+        return {
+          title: optimized.metaTitle,
+        description: optimized.metaDescription,
+        keywords: optimized.keywords.join(', '),
+        alternates: {
+          canonical: post.canonicalUrl || `${siteConfig.url}/blog/${slug}`,
     },
-    robots: {
-      index: shouldIndex,
-      follow: true,
-      googleBot: {
-        index: shouldIndex,
+        robots: {
+          index: shouldIndex,
+        follow: true,
+        googleBot: {
+          index: shouldIndex,
         follow: true,
         'max-video-preview': -1,
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
     },
-    openGraph: {
-      title: optimized.metaTitle,
-      description: optimized.metaDescription,
-      type: 'article',
-      publishedTime: post.date,
-      modifiedTime: post.date,
-      url: `${siteConfig.url}/blog/${slug}`,
-      siteName: siteConfig.name,
-      locale: 'ko_KR',
+        openGraph: {
+          title: optimized.metaTitle,
+        description: optimized.metaDescription,
+        type: 'article',
+        publishedTime: post.date,
+        modifiedTime: post.date,
+        url: `${siteConfig.url}/blog/${slug}`,
+        siteName: siteConfig.name,
+        locale: 'ko_KR',
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: optimized.metaTitle,
-      description: optimized.metaDescription,
+        twitter: {
+          card: 'summary_large_image',
+        title: optimized.metaTitle,
+        description: optimized.metaDescription,
     },
   };
 }
