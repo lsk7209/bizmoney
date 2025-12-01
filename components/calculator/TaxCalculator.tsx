@@ -156,6 +156,10 @@ export function TaxCalculator() {
           </div>
           <CardDescription className="text-base">
             프리랜서/소상공인을 위한 세금 계산기입니다. 입력값은 자동으로 저장됩니다.
+            <br />
+            <span className="text-sm text-foreground/70 mt-2 block">
+              💡 단순경비율을 적용하여 예상 세액을 계산합니다. 실제 세액과는 차이가 있을 수 있어요.
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -519,45 +523,140 @@ export function TaxCalculator() {
       )}
 
 
-      {/* SEO 콘텐츠 래퍼 (광고 슬롯 포함) */}
+      {/* SEO 콘텐츠 래퍼 - 재미있고 유익하게 개선 */}
       <article className="prose prose-sm max-w-none dark:prose-invert mt-12">
-        <h2 className="text-2xl font-bold mb-4">프리랜서 종합소득세 계산기 사용 가이드</h2>
-        <p className="text-base leading-relaxed mb-6">
-          프리랜서와 소상공인을 위한 종합소득세 계산기는 단순경비율을 적용하여 예상 세액을 계산합니다.
-          본 계산기는 간편장부대상자를 기준으로 하며, 실제 세액과는 차이가 있을 수 있습니다.
-        </p>
-        
-        <h3 className="text-xl font-semibold mb-3 mt-6">단순경비율이란?</h3>
-        <p className="text-base leading-relaxed mb-4">
-          단순경비율은 실제 지출한 경비를 일일이 증빙하지 않고도 매출의 일정 비율을 경비로 인정받을 수 있는 제도입니다.
-          업종별로 다른 비율이 적용되며, 프리랜서의 경우 일반적으로 64.1%의 경비율이 적용됩니다.
-        </p>
-        
-        <h3 className="text-xl font-semibold mb-3 mt-6">기본 공제와 부양가족 공제</h3>
-        <p className="text-base leading-relaxed mb-4">
-          종합소득세 계산 시 본인과 부양가족에 대해 기본 공제가 적용됩니다.
-          기본 공제액은 연 150만원이며, 부양가족이 많을수록 공제액이 증가하여 세액이 줄어듭니다.
-        </p>
-        
-        <h3 className="text-xl font-semibold mb-3 mt-6">누진세율 구조</h3>
-        <p className="text-base leading-relaxed mb-4">
-          종합소득세는 과세표준에 따라 6%부터 45%까지의 누진세율이 적용됩니다.
-          소득이 높을수록 높은 세율이 적용되며, 각 구간별로 누진공제액이 차등 적용됩니다.
-        </p>
-        
-        <h3 className="text-xl font-semibold mb-3 mt-6">지방소득세</h3>
-        <p className="text-base leading-relaxed mb-4">
-          지방소득세는 소득세의 10%에 해당하는 세액을 추가로 납부해야 합니다.
-          따라서 총 세액은 소득세와 지방소득세를 합한 금액입니다.
-        </p>
+        <div className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-950/20 dark:to-gray-900 rounded-2xl p-8 md:p-10 border-2 border-blue-200 dark:border-blue-800">
+          <h2 className="text-3xl font-bold mb-6 text-foreground">프리랜서 종합소득세 계산기 완벽 가이드 (2025년 최신!)</h2>
+          <p className="text-lg leading-relaxed mb-8 text-foreground/80">
+            프리랜서와 소상공인을 위한 종합소득세 계산기는 단순경비율을 적용하여 예상 세액을 계산합니다.
+            본 계산기는 간편장부대상자를 기준으로 하며, 실제 세액과는 차이가 있을 수 있습니다.
+            <strong className="text-blue-600 dark:text-blue-400"> 2025년 최신 세법</strong>을 반영하여 계산합니다.
+          </p>
+          
+          <div className="space-y-8">
+            <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span className="text-2xl">💡</span>
+                <span>단순경비율이란? (프리랜서 필수 지식!)</span>
+              </h3>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/80">
+                <p>
+                  단순경비율은 실제 지출한 경비를 일일이 증빙하지 않고도 <strong className="text-blue-600 dark:text-blue-400">매출의 일정 비율을 경비로 인정받을 수 있는 제도</strong>예요.
+                  업종별로 다른 비율이 적용되며, 프리랜서의 경우 일반적으로 <strong className="text-green-600 dark:text-green-400">64.1%</strong>의 경비율이 적용됩니다.
+                </p>
+                <div className="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 mt-4">
+                  <p className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">
+                    💰 예시: 연봉 3,000만원 프리랜서
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    매출 3,000만원 × 64.1% = <strong>1,923만원</strong>이 경비로 인정되고,<br />
+                    과세소득은 <strong>1,077만원</strong>이에요! 이 금액에 세율을 적용해요.
+                  </p>
+                </div>
+              </div>
+            </section>
 
+            <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span className="text-2xl">👨‍👩‍👧‍👦</span>
+                <span>기본 공제와 부양가족 공제 (세금 줄이는 핵심!)</span>
+              </h3>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/80">
+                <p>
+                  종합소득세 계산 시 본인과 부양가족에 대해 기본 공제가 적용됩니다.
+                  기본 공제액은 <strong className="text-green-600 dark:text-green-400">연 150만원</strong>이며, 부양가족이 많을수록 공제액이 증가하여 세액이 줄어듭니다.
+                </p>
+                <div className="p-4 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800 mt-4">
+                  <p className="text-sm font-semibold text-green-700 dark:text-green-300 mb-2">
+                    💡 부양가족 공제 효과
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    부양가족 1명 추가 = <strong>150만원 추가 공제</strong> = 세액 약 <strong>10~20만원 절감</strong>!<br />
+                    부양가족이 많을수록 세금이 크게 줄어들어요.
+                  </p>
+                </div>
+              </div>
+            </section>
 
-        <h3 className="text-xl font-semibold mb-3 mt-6">주의사항</h3>
-        <p className="text-base leading-relaxed mb-4">
-          본 계산기는 참고용이며, 실제 세액과는 차이가 있을 수 있습니다.
-          정확한 세액 계산을 위해서는 홈택스에서 직접 계산하거나 세무 전문가의 도움을 받으시기 바랍니다.
-          또한 원천징수된 세액, 소득공제, 특별공제 등 다양한 요소가 실제 세액에 영향을 미칩니다.
-        </p>
+            <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span className="text-2xl">📊</span>
+                <span>누진세율 구조 (소득이 많을수록 세율도 올라가요!)</span>
+              </h3>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/80">
+                <p>
+                  종합소득세는 과세표준에 따라 <strong className="text-blue-600 dark:text-blue-400">6%부터 45%까지의 누진세율</strong>이 적용됩니다.
+                  소득이 높을수록 높은 세율이 적용되며, 각 구간별로 누진공제액이 차등 적용됩니다.
+                </p>
+                <div className="p-4 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 mt-4">
+                  <p className="text-sm font-semibold text-purple-700 dark:text-purple-300 mb-2">
+                    📈 세율 구간 예시 (2025년 기준)
+                  </p>
+                  <ul className="text-sm text-foreground/80 space-y-1 list-disc list-inside">
+                    <li>1,200만원 이하: <strong>6%</strong></li>
+                    <li>1,200만원 ~ 4,600만원: <strong>15%</strong></li>
+                    <li>4,600만원 ~ 8,800만원: <strong>24%</strong></li>
+                    <li>8,800만원 이상: <strong>35~45%</strong></li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span className="text-2xl">🏛️</span>
+                <span>지방소득세 (소득세의 10% 추가 납부)</span>
+              </h3>
+              <p className="text-base leading-relaxed text-foreground/80">
+                지방소득세는 소득세의 <strong className="text-blue-600 dark:text-blue-400">10%에 해당하는 세액</strong>을 추가로 납부해야 합니다.
+                따라서 총 세액은 소득세와 지방소득세를 합한 금액입니다.
+              </p>
+            </section>
+
+            <section className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-green-700 dark:text-green-300">
+                <span className="text-2xl">🎁</span>
+                <span>2025년 신규! 국세청 "원클릭" 무료 환급 서비스</span>
+              </h3>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/90">
+                <p>
+                  <strong className="text-green-600 dark:text-green-400">홈택스에서 "원클릭 환급 신고"</strong> 메뉴를 찾아보세요!
+                  최대 <strong>5년치 환급금</strong>을 <strong className="text-green-600 dark:text-green-400">완전 무료</strong>로 확인하고 신청할 수 있어요.
+                </p>
+                <p>
+                  삼쩜삼 같은 민간 서비스는 환급액의 <strong>10~20% 수수료</strong>가 있지만, 원클릭은 <strong className="text-green-600 dark:text-green-400">수수료 0원</strong>!
+                  국세청이 빅데이터로 자동 계산해주기 때문에 과다 환급 위험도 없어요.
+                </p>
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-green-200 dark:border-green-800 mt-4">
+                  <p className="text-sm font-semibold text-green-700 dark:text-green-300 mb-2">
+                    💡 원클릭 사용 팁
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    미리 계산기로 예상 세액을 확인한 후 원클릭으로 실제 환급금을 확인하면 더 확실해요!
+                    원클릭은 클릭 한 번으로 1분 안에 환급 신청까지 완료할 수 있어요.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-yellow-800 dark:text-yellow-200">
+                <span className="text-2xl">⚠️</span>
+                <span>주의사항 (반드시 확인하세요!)</span>
+              </h3>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/90">
+                <p>
+                  본 계산기는 <strong>참고용</strong>이며, 실제 세액과는 차이가 있을 수 있습니다.
+                  정확한 세액 계산을 위해서는 <strong className="text-blue-600 dark:text-blue-400">홈택스</strong>에서 직접 계산하거나 <strong className="text-blue-600 dark:text-blue-400">세무 전문가</strong>의 도움을 받으시기 바랍니다.
+                </p>
+                <p>
+                  또한 원천징수된 세액, 소득공제, 특별공제 등 다양한 요소가 실제 세액에 영향을 미칩니다.
+                  특히 <strong>노란우산공제, IRP, 연금저축</strong> 등을 활용하면 세액을 더 줄일 수 있어요!
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
       </article>
 
     </div>

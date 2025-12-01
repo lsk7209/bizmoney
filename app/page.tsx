@@ -29,6 +29,10 @@ export default function HomePage() {
             <br className="hidden md:block" />
             프리랜서와 소상공인을 위한 <strong>무료 세금 계산기</strong>로<br />
             내가 받을 수 있는 <strong className="text-green-600 dark:text-green-400">환급금</strong>을 확인해보세요.
+            <br />
+            <span className="text-base text-foreground/60 mt-2 block">
+              💡 2025년 신규! 국세청 "원클릭"으로 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">무료</strong>로 확인하세요!
+            </span>
           </p>
         </div>
         
@@ -49,8 +53,11 @@ export default function HomePage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="benefit-highlight">
-                  <p className="text-base font-medium text-foreground">
+                  <p className="text-base font-medium text-foreground mb-2">
                     💡 <strong>무료</strong>로 세금 지식 레벨을 확인하고, <strong>맞춤형 계산기</strong>를 추천받으세요.
+                  </p>
+                  <p className="text-sm text-foreground/70">
+                    ⏱️ 약 2분 소요 · 🎯 즉시 결과 확인 · 📊 5문항 간단 테스트
                   </p>
                 </div>
                 <Link href="/quiz">
@@ -77,8 +84,11 @@ export default function HomePage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="benefit-highlight">
-                  <p className="text-base font-medium text-foreground">
+                  <p className="text-base font-medium text-foreground mb-2">
                     ✅ <strong>100% 무료</strong> · <strong>개인정보 보호</strong> · <strong>즉시 결과 확인</strong>
+                  </p>
+                  <p className="text-sm text-foreground/70">
+                    💰 단순경비율 자동 계산 · 🎁 환급금 예상 금액 확인 · 📊 2025년 최신 세법 반영
                   </p>
                 </div>
                 <Link href="/calculator">

@@ -29,9 +29,12 @@ export function QuizContent() {
           5문항의 간단한 퀴즈로 나의 세금 지식을 확인하고,<br />
           <strong className="text-green-600 dark:text-green-400">맞춤형 계산기</strong>를 추천받으세요.
         </p>
-        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg max-w-xl mx-auto">
-          <p className="text-sm text-foreground/80">
-            ⏱️ <strong>약 2분 소요</strong> · ✅ <strong>무료</strong> · 🎯 <strong>맞춤형 결과 제공</strong>
+        <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 border-2 border-blue-300 dark:border-blue-700 rounded-xl max-w-xl mx-auto shadow-sm">
+          <p className="text-base font-semibold text-foreground mb-2">
+            ⏱️ <strong>약 2분 소요</strong> · ✅ <strong>완전 무료</strong> · 🎯 <strong>맞춤형 결과 제공</strong>
+          </p>
+          <p className="text-sm text-foreground/70">
+            💡 각 문제마다 즉시 피드백과 실용 팁을 제공해요!
           </p>
         </div>
       </header>
