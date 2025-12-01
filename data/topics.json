@@ -1,5 +1,16 @@
 {
-  "topics": []
+  "topics": [
+    {
+      "id": "sample-topic-1",
+      "title": "2025년 프리랜서 종합소득세 신고 기간 및 준비 서류 완벽 가이드",
+      "status": "pending",
+      "createdAt": "2025-12-01T00:00:00.000Z"
+    },
+    {
+      "id": "sample-topic-2",
+      "title": "노란우산공제, 프리랜서에게 정말 이득일까? 장단점 전격 분석",
+      "status": "pending",
+      "createdAt": "2025-12-01T00:00:00.000Z"
+    }
+  ]
 }
-
-
