@@ -100,27 +100,6 @@ export default function HomePage() {
             </CardContent>
           </Card>
         </div>
-
-        {/* 빠른 액션 버튼 */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
-          <Link href="/quiz" className="flex-1">
-            <Button
-              size="lg"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md hover:shadow-lg transition-all"
-            >
-              📊 세금 방어력 테스트
-            </Button>
-          </Link>
-          <Link href="/calculator" className="flex-1">
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950 font-semibold shadow-md hover:shadow-lg transition-all"
-            >
-              💰 환급금 계산하기
-            </Button>
-          </Link>
-        </div>
       </section>
 
       {/* 콘텐츠 섹션 - 유익한 정보 제공 */}
