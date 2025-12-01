@@ -350,48 +350,158 @@ export function WithholdingTaxCalculator() {
         </div>
       )}
 
+      {/* SEO 콘텐츠 - 재미있고 유익하게 개선 */}
       <article className="prose prose-lg max-w-none dark:prose-invert mt-16">
         <div className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-950/20 dark:to-gray-900 rounded-2xl p-8 md:p-10 border-2 border-blue-200 dark:border-blue-800">
-          <h2 className="text-3xl font-bold mb-6">원천징수세 계산기 사용 가이드</h2>
+          <h2 className="text-3xl font-bold mb-6 text-foreground">원천징수세 계산기 완벽 가이드 (2025년 최신!)</h2>
           <p className="text-lg leading-relaxed mb-8 text-foreground/80">
             원천징수세는 프리랜서가 계약금액을 받을 때 의뢰인이 미리 징수하는 세금입니다. 본 계산기로 예상 원천징수세액과 실수령액을 확인하세요.
+            <strong className="text-blue-600 dark:text-blue-400"> 2025년 최신 세법</strong>을 반영하여 계산합니다.
           </p>
           
           <div className="space-y-8">
             <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
                 <span className="text-2xl">💡</span>
-                <span>원천징수세란?</span>
+                <span>원천징수세란? (프리랜서 필수 지식!)</span>
               </h3>
-              <p className="text-base leading-relaxed text-foreground/80">
-                원천징수세는 프리랜서가 받는 계약금액에서 의뢰인이 미리 징수하는 세금입니다. 
-                일반적으로 <strong className="text-blue-600 dark:text-blue-400">3.3%</strong>의 원천징수율이 적용되며, 
-                연말정산 시 실제 세액과 비교하여 정산됩니다.
-              </p>
+              <div className="space-y-4 text-base leading-relaxed text-foreground/80">
+                <p>
+                  원천징수세는 프리랜서가 받는 계약금액에서 의뢰인이 <strong className="text-blue-600 dark:text-blue-400">미리 징수하는 세금</strong>입니다. 
+                  일반적으로 <strong className="text-blue-600 dark:text-blue-400">3.3%</strong>의 원천징수율이 적용되며, 
+                  연말정산 시 실제 세액과 비교하여 정산됩니다.
+                </p>
+                <div className="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 mt-4">
+                  <p className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">
+                    💡 왜 미리 징수할까요?
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    프리랜서는 매월 소득이 발생하지만, 세금은 다음 해 5월에 신고해요. 
+                    그래서 의뢰인이 미리 세금을 떼어서 국세청에 납부하는 거예요! 
+                    나중에 실제 세액과 비교해서 정산돼요.
+                  </p>
+                </div>
+                <div className="p-4 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800 mt-4">
+                  <p className="text-sm font-semibold text-green-700 dark:text-green-300 mb-2">
+                    💰 원천징수세 예시
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    계약금액 100만원이면<br />
+                    원천징수세 = <strong>100만원 × 3.3% = 3.3만원</strong><br />
+                    실수령액 = <strong>100만원 - 3.3만원 = 96.7만원</strong>
+                  </p>
+                </div>
+              </div>
             </section>
 
             <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
                 <span className="text-2xl">💰</span>
-                <span>실수령액 계산</span>
+                <span>실수령액 계산 (부가세 포함/미포함 구분 중요!)</span>
               </h3>
-              <p className="text-base leading-relaxed text-foreground/80">
-                실수령액 = 계약금액 - 원천징수세액입니다. 부가세 포함 계약의 경우 부가세를 제외한 공급가액 기준으로 원천징수세가 계산됩니다.
-              </p>
+              <div className="space-y-4 text-base leading-relaxed text-foreground/80">
+                <p>
+                  실수령액 = 계약금액 - 원천징수세액입니다. 
+                  <strong className="text-blue-600 dark:text-blue-400">부가세 포함 계약</strong>의 경우 
+                  부가세를 제외한 공급가액 기준으로 원천징수세가 계산됩니다.
+                </p>
+                <div className="p-4 bg-orange-50 dark:bg-orange-950/30 rounded-lg border border-orange-200 dark:border-orange-800 mt-4">
+                  <p className="text-sm font-semibold text-orange-700 dark:text-orange-300 mb-2">
+                    💡 부가세 포함 계약 예시
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    계약금액 110만원 (부가세 포함)이면<br />
+                    공급가액 = 110만원 ÷ 1.1 = <strong>100만원</strong><br />
+                    원천징수세 = 100만원 × 3.3% = <strong>3.3만원</strong><br />
+                    실수령액 = 110만원 - 3.3만원 = <strong>106.7만원</strong>
+                  </p>
+                </div>
+                <div className="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 mt-4">
+                  <p className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">
+                    💡 부가세 미포함 계약 예시
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    계약금액 100만원 (부가세 미포함)이면<br />
+                    원천징수세 = 100만원 × 3.3% = <strong>3.3만원</strong><br />
+                    실수령액 = 100만원 - 3.3만원 = <strong>96.7만원</strong>
+                  </p>
+                </div>
+              </div>
             </section>
 
-            <div className="my-8 flex justify-center">
-            </div>
+            <section className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                <span className="text-2xl">📊</span>
+                <span>5월 종합소득세 신고 시 정산 (환급받을 수도 있어요!)</span>
+              </h3>
+              <div className="space-y-4 text-base leading-relaxed text-foreground/80">
+                <p>
+                  원천징수된 3.3%는 다음 해 <strong className="text-blue-600 dark:text-blue-400">5월 종합소득세 신고 시 기납부세액</strong>으로 처리돼요. 
+                  실제 세액이 적으면 환급받을 수 있어요!
+                </p>
+                <div className="p-4 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800 mt-4">
+                  <p className="text-sm font-semibold text-green-700 dark:text-green-300 mb-2">
+                    💰 환급 예시
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    원천징수세 100만원, 실제 세액 50만원이면<br />
+                    환급금 = <strong>100만원 - 50만원 = 50만원</strong>을 환급받아요! 🎉
+                  </p>
+                </div>
+                <div className="p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-800 mt-4">
+                  <p className="text-sm font-semibold text-red-700 dark:text-red-300 mb-2">
+                    💰 추가납부 예시
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    원천징수세 50만원, 실제 세액 100만원이면<br />
+                    추가납부 = <strong>100만원 - 50만원 = 50만원</strong>을 추가로 납부해야 해요.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-xl p-6 border-2 border-blue-300 dark:border-blue-700">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-blue-700 dark:text-blue-300">
+                <span className="text-2xl">🎁</span>
+                <span>2025년 신규! 국세청 "원클릭" 무료 환급 서비스</span>
+              </h3>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/90">
+                <p>
+                  <strong className="text-blue-600 dark:text-blue-400">홈택스에서 "원클릭 환급 신고"</strong> 메뉴를 찾아보세요!
+                  최대 <strong>5년치 환급금</strong>을 <strong className="text-blue-600 dark:text-blue-400">완전 무료</strong>로 확인하고 신청할 수 있어요.
+                </p>
+                <p>
+                  원천징수세 정산도 원클릭으로 자동으로 해줘요! 
+                  삼쩜삼 같은 민간 서비스는 수수료가 있지만, 원클릭은 <strong className="text-blue-600 dark:text-blue-400">수수료 0원</strong>!
+                </p>
+                <div className="p-4 bg-white/80 dark:bg-gray-900/80 rounded-lg border border-blue-200 dark:border-blue-800 mt-4">
+                  <p className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">
+                    💡 원클릭 사용 팁
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    미리 계산기로 예상 원천징수세와 실수령액을 확인한 후 원클릭으로 실제 환급금을 확인하면 더 확실해요!
+                    원클릭은 클릭 한 번으로 1분 안에 환급 신청까지 완료할 수 있어요.
+                  </p>
+                </div>
+              </div>
+            </section>
 
             <section className="bg-yellow-50 dark:bg-yellow-950/30 rounded-xl p-6 border-2 border-yellow-200 dark:border-yellow-800">
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-yellow-800 dark:text-yellow-200">
                 <span className="text-2xl">⚠️</span>
-                <span>주의사항</span>
+                <span>주의사항 (반드시 확인하세요!)</span>
               </h3>
-              <p className="text-base leading-relaxed text-foreground/90">
-                본 계산기는 참고용이며, 실제 원천징수세와는 차이가 있을 수 있습니다. 
-                정확한 원천징수세는 <strong>세무 전문가</strong>의 도움을 받으시기 바랍니다.
-              </p>
+              <div className="space-y-3 text-base leading-relaxed text-foreground/90">
+                <p>
+                  본 계산기는 <strong>참고용</strong>이며, 실제 원천징수세와는 차이가 있을 수 있습니다. 
+                  정확한 원천징수세는 <strong className="text-blue-600 dark:text-blue-400">세무 전문가</strong>의 도움을 받으시기 바랍니다.
+                </p>
+                <p>
+                  특히 <strong>부가세 포함/미포함</strong>을 정확히 구분해야 해요! 
+                  계약서에 명시되어 있지 않다면 의뢰인에게 확인하세요. 
+                  부가세 포함 계약인데 미포함으로 계산하면 원천징수세가 잘못 계산될 수 있어요!
+                </p>
+              </div>
             </section>
           </div>
         </div>
