@@ -2,15 +2,16 @@
 
 import { Button } from '@/components/ui/button';
 import { Share2, Link2, Facebook, Twitter } from 'lucide-react';
-import { toast } from 'sonner'; // Assuming sonner or similar toast is used, or I'll use alert for now if not sure. I'll check package.json again. No sonner. I'll use window.alert or simple copy.
+import { toast } from 'sonner';
 
 export function ShareButtons({ title, url }: { title: string; url: string }) {
     const handleCopyLink = async () => {
         try {
             await navigator.clipboard.writeText(url);
-            alert('링크가 복사되었습니다!');
+            toast.success('링크가 복사되었습니다!');
         } catch (err) {
             console.error('Failed to copy:', err);
+            toast.error('링크 복사에 실패했습니다.');
         }
     };
 

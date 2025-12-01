@@ -4,6 +4,7 @@ import { ConditionalHeaderFooter } from '@/components/layout/ConditionalHeaderFo
 import { GoogleAdSense } from '@/components/growth-engine/GoogleAdSense';
 import { CustomBodyStartScripts, CustomBodyEndScripts } from '@/components/layout/CustomScripts';
 import { siteConfig } from '@/site.config';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -66,6 +67,7 @@ export default function RootLayout({
         <CustomBodyStartScripts />
         {siteConfig.adsense.enabled && <GoogleAdSense />}
         <ConditionalHeaderFooter>{children}</ConditionalHeaderFooter>
+        <Toaster position="top-center" richColors />
         <CustomBodyEndScripts />
       </body>
     </html>
