@@ -26,15 +26,17 @@ export function OptimizedImage({ src, alt, title, ...props }: OptimizedImageProp
   const isExternal = src.startsWith('http://') || src.startsWith('https://');
 
   if (isExternal) {
-    // 외부 이미지는 일반 img 태그 사용 (Next.js Image는 도메인 허용 필요)
-    // eslint-disable-next-line @next/next/no-img-element
+    // 외부 이미지는 Next.js Image의 unoptimized 속성 사용
     return (
-      <img
+      <Image
         src={src}
         alt={autoAlt}
         title={title}
-        loading="lazy"
-        {...props}
+        width={props.width ? Number(props.width) : 800}
+        height={props.height ? Number(props.height) : 600}
+        unoptimized
+        className={props.className}
+        style={props.style}
       />
     );
   }
@@ -65,7 +67,7 @@ function extractAltFromSrc(src: string): string {
     .replace(/[-_]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  
+
   return altText || '이미지';
 }
 
