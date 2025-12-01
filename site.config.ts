@@ -13,13 +13,13 @@ const getSiteUrl = (): string => {
   }
   
   // 기본값 (개발 환경)
-  return url || 'https://example.com';
+  return url || 'https://biz-money.vercel.app';
 };
 
 export const siteConfig = {
   name: 'Biz-Wallet (사장님의 지갑)',
   description: '프리랜서와 소상공인을 위한 세금 계산 및 정부지원금 매칭 웹 유틸리티',
-  url: getSiteUrl(),
+  url: 'https://biz-money.vercel.app',
   ogImage: '/og-image.jpg',
   links: {
     twitter: '',

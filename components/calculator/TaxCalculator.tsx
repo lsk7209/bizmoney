@@ -428,10 +428,10 @@ export function TaxCalculator() {
                 </div>
                 <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-lg border-2 border-blue-300 dark:border-blue-700">
                   <p className="text-base font-bold text-blue-700 dark:text-blue-300 mb-2">
-                    🎁 2025년 신규! 국세청 "원클릭" 무료 환급 서비스
+                    🎁 2025년 신규! 국세청 &quot;원클릭&quot; 무료 환급 서비스
                   </p>
                   <p className="text-sm text-foreground/80 leading-relaxed mb-2">
-                    홈택스에서 "원클릭 환급 신고" 메뉴를 찾아보세요! 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">완전 무료</strong>로 확인하고 신청할 수 있어요. 삼쩜삼 같은 민간 서비스는 수수료가 있지만, 원클릭은 수수료 0원!
+                    홈택스에서 &quot;원클릭 환급 신고&quot; 메뉴를 찾아보세요! 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">완전 무료</strong>로 확인하고 신청할 수 있어요. 삼쩜삼 같은 민간 서비스는 수수료가 있지만, 원클릭은 수수료 0원!
                   </p>
                   <p className="text-xs text-foreground/60">
                     * 원클릭은 국세청이 자동으로 계산해주지만, 미리 계산기로 예상 세액을 확인하면 더 확실해요!
@@ -465,7 +465,7 @@ export function TaxCalculator() {
                   💰 환급 후기 스타일
                 </p>
                 <p className="text-xs text-foreground/70 leading-relaxed">
-                  "원천징수된 3.3%와 비교하면 실제로는 환급받을 수도 있어요! 실제로 많은 분들이 예상보다 더 많이 받는다고 하네요. 홈택스 원클릭으로 확인해보세요!"
+                  &quot;원천징수된 3.3%와 비교하면 실제로는 환급받을 수도 있어요! 실제로 많은 분들이 예상보다 더 많이 받는다고 하네요. 홈택스 원클릭으로 확인해보세요!&quot;
                 </p>
               </div>
               <p className="text-xs text-foreground/60 mt-3">
@@ -616,11 +616,11 @@ export function TaxCalculator() {
             <section className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-700">
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-green-700 dark:text-green-300">
                 <span className="text-2xl">🎁</span>
-                <span>2025년 신규! 국세청 "원클릭" 무료 환급 서비스</span>
+                <span>2025년 신규! 국세청 &quot;원클릭&quot; 무료 환급 서비스</span>
               </h3>
               <div className="space-y-3 text-base leading-relaxed text-foreground/90">
                 <p>
-                  <strong className="text-green-600 dark:text-green-400">홈택스에서 "원클릭 환급 신고"</strong> 메뉴를 찾아보세요!
+                  <strong className="text-green-600 dark:text-green-400">홈택스에서 &quot;원클릭 환급 신고&quot;</strong> 메뉴를 찾아보세요!
                   최대 <strong>5년치 환급금</strong>을 <strong className="text-green-600 dark:text-green-400">완전 무료</strong>로 확인하고 신청할 수 있어요.
                 </p>
                 <p>

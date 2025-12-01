@@ -49,9 +49,7 @@ export async function checkTursoConnection(): Promise<boolean> {
     await client.execute('SELECT 1');
     return true;
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Turso connection check failed:', error);
-    }
+    console.error('Turso connection check failed:', error);
     return false;
   }
 }

@@ -509,11 +509,11 @@ export function VATCalculator() {
             <section className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-700">
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-green-700 dark:text-green-300">
                 <span className="text-2xl">🎁</span>
-                <span>2025년 신규! 국세청 "원클릭" 무료 환급 서비스</span>
+                <span>2025년 신규! 국세청 &quot;원클릭&quot; 무료 환급 서비스</span>
               </h3>
               <div className="space-y-3 text-base leading-relaxed text-foreground/90">
                 <p>
-                  <strong className="text-green-600 dark:text-green-400">홈택스에서 "원클릭 환급 신고"</strong> 메뉴를 찾아보세요!
+                  <strong className="text-green-600 dark:text-green-400">홈택스에서 &quot;원클릭 환급 신고&quot;</strong> 메뉴를 찾아보세요!
                   최대 <strong>5년치 환급금</strong>을 <strong className="text-green-600 dark:text-green-400">완전 무료</strong>로 확인하고 신청할 수 있어요.
                 </p>
                 <p>

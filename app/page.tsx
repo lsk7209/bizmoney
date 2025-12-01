@@ -31,7 +31,7 @@ export default function HomePage() {
             내가 받을 수 있는 <strong className="text-green-600 dark:text-green-400">환급금</strong>을 확인해보세요.
             <br />
             <span className="text-base text-foreground/60 mt-2 block">
-              💡 2025년 신규! 국세청 "원클릭"으로 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">무료</strong>로 확인하세요!
+              💡 2025년 신규! 국세청 &quot;원클릭&quot;으로 최대 5년치 환급금을 <strong className="text-blue-600 dark:text-blue-400">무료</strong>로 확인하세요!
             </span>
           </p>
         </div>

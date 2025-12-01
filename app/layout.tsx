@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { ConditionalHeaderFooter } from '@/components/layout/ConditionalHeaderFooter';
 import { GoogleAdSense } from '@/components/growth-engine/GoogleAdSense';
 import { CustomBodyStartScripts, CustomBodyEndScripts } from '@/components/layout/CustomScripts';
 import { siteConfig } from '@/site.config';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -68,8 +61,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={inter.variable}>
-      <body className="min-h-screen flex flex-col">
+    <html lang="ko">
+      <body className="min-h-screen flex flex-col font-pretendard">
         <CustomBodyStartScripts />
         {siteConfig.adsense.enabled && <GoogleAdSense />}
         <ConditionalHeaderFooter>{children}</ConditionalHeaderFooter>

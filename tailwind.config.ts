@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['Pretendard', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        pretendard: ['Pretendard', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
